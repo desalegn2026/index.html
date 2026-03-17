@@ -1,0 +1,24 @@
+<div id="commentSection" class="hidden glass p-8 rounded-3xl shadow-2xl max-w-2xl w-full text-white mx-4 max-h-[90vh] flex flex-col">
+    <h2 class="text-2xl font-bold mb-2">የሃሳብ መድረክ</h2>
+    <p class="mb-6 opacity-70 text-sm italic">እዚህ ጋር ማንበብ እና መጻፍ ይችላሉ።</p>
+    
+    <div class="mb-6">
+        <textarea id="commentInput" rows="3" 
+            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all" 
+            placeholder="የእርስዎን ሃሳብ እዚህ ይጻፉ..."></textarea>
+        <button onclick="postComment()" 
+            class="mt-3 w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-blue-900 font-bold py-2 rounded-xl transition duration-300 transform active:scale-95">
+            አስተያየቴን አጋራ
+        </button>
+    </div>
+
+    <div class="overflow-y-auto pr-2 custom-scrollbar">
+        <h3 class="text-lg font-semibold mb-4 border-b border-white/10 pb-2">የተጋሩ አስተያየቶች</h3>
+        <div id="displayComments" class="space-y-4">
+            <div class="bg-white/5 p-4 rounded-lg border-l-4 border-yellow-500">
+                <p class="text-sm">"ይህ ዲጂታል ዕቁብ ለሁላችንም ትልቅ መፍትሄ ነው!"</p>
+                <span class="text-[10px] opacity-40 block mt-2">ከጥቂት ደቂቃዎች በፊት</span>
+            </div>
+        </div>
+    </div>
+</div>
