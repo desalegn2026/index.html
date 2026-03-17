@@ -1,24 +1,140 @@
-<div id="commentSection" class="hidden glass p-8 rounded-3xl shadow-2xl max-w-2xl w-full text-white mx-4 max-h-[90vh] flex flex-col">
-    <h2 class="text-2xl font-bold mb-2">የሃሳብ መድረክ</h2>
-    <p class="mb-6 opacity-70 text-sm italic">እዚህ ጋር ማንበብ እና መጻፍ ይችላሉ።</p>
-    
-    <div class="mb-6">
-        <textarea id="commentInput" rows="3" 
-            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all" 
-            placeholder="የእርስዎን ሃሳብ እዚህ ይጻፉ..."></textarea>
-        <button onclick="postComment()" 
-            class="mt-3 w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-blue-900 font-bold py-2 rounded-xl transition duration-300 transform active:scale-95">
-            አስተያየቴን አጋራ
-        </button>
-    </div>
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desalegn Digital Equb</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* ለጽሁፉ የሚቀያየር ህብረ ቀለም (Animation) */
+        @keyframes colorChange {
+            0% { color: #1877f2; }
+            33% { color: #42b72a; }
+            66% { color: #f02849; }
+            100% { color: #1877f2; }
+        }
+        .changing-title {
+            animation: colorChange 4s linear infinite;
+        }
+        body { background-color: #f0f2f5; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 font-sans">
 
-    <div class="overflow-y-auto pr-2 custom-scrollbar">
-        <h3 class="text-lg font-semibold mb-4 border-b border-white/10 pb-2">የተጋሩ አስተያየቶች</h3>
-        <div id="displayComments" class="space-y-4">
-            <div class="bg-white/5 p-4 rounded-lg border-l-4 border-yellow-500">
-                <p class="text-sm">"ይህ ዲጂታል ዕቁብ ለሁላችንም ትልቅ መፍትሄ ነው!"</p>
-                <span class="text-[10px] opacity-40 block mt-2">ከጥቂት ደቂቃዎች በፊት</span>
+    <div id="loginArea" class="max-w-5xl w-full flex flex-col md:flex-row items-center justify-between gap-12">
+        
+        <div class="text-center md:text-left md:w-1/2">
+            <h1 class="changing-title text-5xl md:text-6xl font-black mb-6 tracking-tight">
+                Desalegn Digital Equb
+            </h1>
+            <p class="text-xl md:text-2xl font-medium leading-relaxed text-gray-800 italic">
+                "አንድ ብር ብቻውን ተራ ሳንቲም ነው፤ በሺህዎች የሚቆጠሩ እጆች ሲያቆዩት ግን ህልምን እውን የሚያደርግ ጉልበት ይሆናል። 'ደሳለኝ ዲጂታል ዕቁብ' የነገን ብርሃን ዛሬ በጋራ የምንወልድበት ስፍራ ነው።"
+            </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-[400px] border border-gray-100">
+            <div class="space-y-4">
+                <input type="text" id="uCode" placeholder="User Name (Desu2026)" 
+                    class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-lg shadow-sm">
+                
+                <input type="password" id="pCode" placeholder="Password (D2026)" 
+                    class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-lg shadow-sm">
+                
+                <button onclick="startApp()" 
+                    class="w-full bg-[#1877f2] hover:bg-[#166fe5] text-white font-bold py-3 rounded-lg text-xl transition-all shadow-md">
+                    Log In
+                </button>
+                
+                <p id="errorNote" class="text-red-500 text-sm hidden text-center font-bold">የገቡት ኮድ የተሳሳተ ነው!</p>
+
+                <div class="text-center border-b border-gray-300 pb-6 mt-2">
+                    <a href="#" class="text-blue-600 text-sm hover:underline">Forgotten password?</a>
+                </div>
+                
+                <div class="pt-4 text-center">
+                    <button class="bg-[#42b72a] hover:bg-[#36a420] text-white font-bold py-3 px-6 rounded-lg text-lg">
+                        Create new account
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div id="mainApp" class="hidden w-full max-w-2xl bg-white p-8 rounded-2xl shadow-2xl">
+        <div class="flex justify-between items-center mb-6 border-b pb-4">
+            <h2 class="text-2xl font-bold text-blue-700">የአባላት የሃሳብ መድረክ</h2>
+            <button onclick="location.reload()" class="text-red-500 font-bold text-sm">ውጣ (Logout)</button>
+        </div>
+
+        <div class="mb-8">
+            <label class="block text-gray-600 mb-2 font-medium">አዲስ አስተያየት ይጻፉ፡</label>
+            <textarea id="myComment" rows="3" 
+                class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-inner bg-gray-50" 
+                placeholder="ምን ያስባሉ?"></textarea>
+            <button onclick="saveComment()" 
+                class="mt-3 bg-blue-600 text-white px-8 py-2 rounded-full font-bold hover:bg-blue-700 shadow-md transition-all">
+                አጋራ 🚀
+            </button>
+        </div>
+
+        <div class="border-t pt-6">
+            <h3 class="text-lg font-bold text-gray-700 mb-4 italic">የተጻፉ አስተያየቶች፡</h3>
+            <div id="commentList" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // አፕሊኬሽኑን ለማስጀመር (Login)
+        function startApp() {
+            const user = document.getElementById('uCode').value;
+            const pass = document.getElementById('pCode').value;
+            const error = document.getElementById('errorNote');
+
+            if (user === "Desu2026" && pass === "D2026") {
+                document.getElementById('loginArea').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                loadComments(); // ቀደም ብለው የተጻፉትን አምጣ
+            } else {
+                error.classList.remove('hidden');
+            }
+        }
+
+        // አስተያየት ለመመዝገብ
+        function saveComment() {
+            const box = document.getElementById('myComment');
+            const text = box.value.trim();
+            
+            if (text !== "") {
+                let comments = JSON.parse(localStorage.getItem('equb_comments') || "[]");
+                comments.unshift({ text: text, date: new Date().toLocaleString('am-ET') });
+                localStorage.setItem('equb_comments', JSON.stringify(comments));
+                
+                box.value = "";
+                loadComments();
+            }
+        }
+
+        // አስተያየቶችን ለማንበብ
+        function loadComments() {
+            const list = document.getElementById('commentList');
+            const comments = JSON.parse(localStorage.getItem('equb_comments') || "[]");
+            
+            list.innerHTML = comments.map(c => `
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm transition-all hover:bg-blue-50">
+                    <p class="text-gray-800 text-base leading-relaxed">${c.text}</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                        <span class="text-[10px] text-gray-400 font-medium italic">${c.date}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            if(comments.length === 0) {
+                list.innerHTML = "<p class='text-gray-400 text-center py-4'>ገና ምንም አስተያየት አልተጻፈም!</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
