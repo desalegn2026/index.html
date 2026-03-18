@@ -5,135 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>የሥራና ስልጠና ስትራቴጂ ማገዣ መድረክ</title>
     <style>
-        :root { --primary-color: #0056b3; --bg-color: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { background: #fff; max-width: 800px; width: 100%; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); box-sizing: border-box; }
-        .header-box { text-align: justify; background: #eef5ff; padding: 25px; border-left: 6px solid var(--primary-color); border-radius: 8px; margin-bottom: 25px; line-height: 1.8; }
-        h2 { color: var(--primary-color); text-align: center; margin-top: 0; }
+        :root { --primary: #0056b3; --success: #28a745; --text: #333; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { background: #fff; max-width: 800px; width: 100%; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .page { display: none; animation: fadeIn 0.6s ease; }
+        .active { display: block; }
+        .header-box { text-align: justify; line-height: 1.8; }
+        .hero-btn { display: block; width: 100%; max-width: 300px; margin: 30px auto; padding: 15px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
         .tab { display: none; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
-        .btn-group { display: flex; justify-content: space-between; margin-top: 25px; }
-        button { padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        #nextBtn { background-color: var(--primary-color); color: white; }
-        #prevBtn { background-color: #bbbbbb; color: white; }
-        button:hover { opacity: 0.8; }
-        .step-indicator { text-align: center; margin-bottom: 20px; font-weight: bold; color: var(--primary-color); font-size: 18px; }
-        label { font-weight: bold; display: block; margin-top: 15px; color: #444; }
-        .payment-info { background: #fff3cd; padding: 15px; border-radius: 6px; border: 1px solid #ffeeba; margin: 15px 0; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        .success-box { text-align: center; border: 2px solid var(--success); padding: 30px; border-radius: 12px; background: #f0fff4; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header-box">
-        <h2>የኢትዮጵያ የሥራና ስልጠና ስትራቴጂ ማገዣ መድረክ</h2>
-        <p><strong>የሥራና ስልጠና ጉዞ ወደ ብሩህ ተስፋ!</strong></p>
-        <p>በአሁኑ ወቅት አገራችን ኢትዮጵያ በከፍተኛ የኢኮኖሚ ሽግግር እና የሪፎርም ሂደት ላይ ትገኛለች። ይህንን ሽግግር ከግብ ለማድረስ ደግሞ በዕውቀት፣ በክህሎት እና በስነ-ምግባር የታነጸ የሰው ኃይል መገንባት ቀዳሚው ተግባር ነው። <strong>የሥራና ስልጠና ሚኒስቴር</strong> ባወጣው ሀገራዊ ስትራቴጂ መሠረት፣ የሥራ አጥነትን ችግር ለመቅረፍ የግሉ ዘርፍ እና የመንግሥት ተቋማት ተቀናጅተው እንዲሰሩ አቅጣጫ ተቀምጧል።</p>
-        <p>ይህ የዲጂታል ምዝገባ መድረክ የተዘጋጀው በዚሁ ሀገራዊ ጥሪ መሠረት ሲሆን፣ ዓላማውም በምህንድስና እና በተለያዩ የሙያ ዘርፎች የተሰማሩ ኢትዮጵያውያን ወጣቶች ያሏቸውን ክህሎቶች በዝርዝር የሚያስመዘግቡበትና ከሚመጥናቸው የሥራ ዕድል ጋር የሚገናኙበትን ምቹ ሁኔታ መፍጠር ነው። ይህ ሲስተም ብቃትን (Meritocracy) መሠረት ያደረገ የቅጥር ሥርዓትን ለማስፈን የሚረዳ ሲሆን፣ የ100 ብር ክፍያ የምዝገባ ሂደቱን በዘመናዊ ቴክኖሎጂ ለመምራት የሚውል የአገልግሎት ማስተዳደሪያ (Administrative fee) ነው።</p>
-        <p style="text-align: center; font-weight: bold; color: var(--primary-color);">"ክህሎት ይሸልማል፤ ትጋት ሀገርን ይገነባል!"</p>
+    
+    <div id="welcomePage" class="page active">
+        <div class="header-box">
+            <h2 style="color: var(--primary); text-align: center;">የኢትዮጵያ የሥራና ስልጠና ስትራቴጂ ማገዣ መድረክ</h2>
+            <p><strong>የሥራና ስልጠና ጉዞ ወደ ብሩህ ተስፋ!</strong></p>
+            <p>በአሁኑ ወቅት አገራችን ኢትዮጵያ በከፍተኛ የኢኮኖሚ ሽግግር እና የሪፎርም ሂደት ላይ ትገኛለች። ይህንን ሽግግር ከግብ ለማድረስ ደግሞ በዕውቀት፣ በክህሎት እና በስነ-ምግባር የታነጸ የሰው ኃይል መገንባት ቀዳሚው ተግባር ነው። <strong>የሥራና ስልጠና ሚኒስቴር</strong> ባወጣው ሀገራዊ ስትራቴጂ መሠረት፣ የግሉ ዘርፍ እና የመንግሥት ተቋማት ተቀናጅተው የሥራ አጥነትን ችግር እንዲቀረፉ አቅጣጫ ተቀምጧል። ይህ መድረክ የእርስዎን ሙያዊ አቅም ከሀገራዊ ፍላጎት ጋር ለማገናኘት የተዘጋጀ ኦፊሴላዊ የምዝገባ ሲስተም ነው።</p>
+            <button class="hero-btn" onclick="showForm()">ለመመዝገብ እዚህ ይጫኑ</button>
+        </div>
     </div>
 
-    <div class="step-indicator" id="stepText">ደረጃ 1 ከ 4</div>
-
-    <form id="regForm" name="job-application" method="POST" data-netlify="true" enctype="multipart/form-data">
-        <input type="hidden" name="form-name" value="job-application" />
-
-        <div class="tab">
-            <label>1. የግል መረጃ</label>
-            <input name="full_name" placeholder="ሙሉ ስም" required>
-            <select name="gender" required><option value="">ጾታ ይምረጡ</option><option>ወንድ</option><option>ሴት</option></select>
-            <label>የትውልድ ቀን</label>
-            <input type="date" name="dob" required>
-            <input name="birth_place" placeholder="የትውልድ ቦታ" required>
-            <input name="nationality" placeholder="ዜግነት" required>
-            <input name="marital_status" placeholder="የጋብቻ ሁኔታ">
-            <input name="id_no" placeholder="የመታወቂያ ቁጥር" required>
-        </div>
-
-        <div class="tab">
-            <label>2. የመገናኛ አድራሻና ትምህርት</label>
-            <input name="phone" type="tel" placeholder="ስልክ ቁጥር (09...)" required>
-            <input name="email" type="email" placeholder="ኢሜል አድራሻ">
-            <input name="city" placeholder="አሁናዊ አድራሻ (ከተማ/ክፍለ ከተማ)">
-            <input name="house_no" placeholder="የቤት ቁጥር">
-            <input name="edu_level" placeholder="ከፍተኛ የትምህርት ደረጃ" required>
-            <input name="institution" placeholder="የተመረቁበት ተቋም">
-            <input name="grad_year" type="number" placeholder="የምረቃ ዓመተ ምህረት">
-            <input name="field" placeholder="የጥናት መስክ/ሙያ" required>
-        </div>
-
-        <div class="tab">
-            <label>3. የሥራ ልምድና ልዩ ክህሎት</label>
-            <input name="gpa" placeholder="ጠቅላላ ውጤት (GPA)">
-            <input name="languages" placeholder="የቋንቋ ችሎታ">
-            <input name="skills" placeholder="ልዩ የኮምፒውተር/ቴክኒክ ክህሎቶች">
-            <input name="last_job" placeholder="የአሁኑ ወይም የመጨረሻ የስራ መደብ">
-            <input name="last_company" placeholder="የተቀጠሩበት ድርጅት ስም">
-            <input name="total_exp" type="number" placeholder="አጠቃላይ የዓመት ስራ ልምድ">
-            <input name="salary" placeholder="የሚጠበቅ ደመወዝ">
-        </div>
-
-        <div class="tab">
-            <label>4. ክፍያና ፋይሎች</label>
-            <div class="payment-info">
-                <p>እባክዎ የምዝገባ አገልግሎት ክፍያ <strong>100 ብር</strong> በቴሌብር (<strong>09XXXXXXXX</strong>) ወይም በንግድ ባንክ (<strong>1000XXXXXXXX</strong>) ከፍለው የደረሰኙን ፎቶ እዚህ ይጫኑ።</p>
+    <div id="formPage" class="page">
+        <form id="regForm" name="job-app" method="POST" data-netlify="true" enctype="multipart/form-data">
+            <input type="hidden" name="form-name" value="job-app" />
+            <div class="tab">
+                <h3>ደረጃ 1፡ የግል መረጃ</h3>
+                <input id="userName" name="full_name" placeholder="ሙሉ ስም (ከነአባት)" required>
+                <input name="phone" placeholder="ስልክ ቁጥር" required>
+                <input name="edu" placeholder="የትምህርት ደረጃ" required>
             </div>
-            <label>የክፍያ ደረሰኝ (ፎቶ)</label>
-            <input type="file" name="receipt" accept="image/*" required>
-            <label>ሲቪ (CV - PDF/Doc)</label>
-            <input type="file" name="cv" accept=".pdf,.doc,.docx" required>
-            <input name="reference" placeholder="ማጣቀሻ (የሰው ስም እና ስልክ)">
-            <textarea name="cover_letter" rows="3" placeholder="ተጨማሪ ማብራሪያ ካለዎት እዚህ ይጻፉ..."></textarea>
-        </div>
+            <div class="tab">
+                <h3>ደረጃ 2፡ ክፍያና ፋይሎች</h3>
+                <p>100 ብር በቴሌብር (09XXXXXXXX) ከፍለው ደረሰኙን ይጫኑ።</p>
+                <input type="file" name="receipt" accept="image/*" required>
+                <input type="file" name="cv" accept=".pdf" required>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="flex:1; padding:12px;">ተመለስ</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" style="flex:1; padding:12px; background:var(--primary); color:#fff;">ቀጥል</button>
+            </div>
+        </form>
+    </div>
 
-        <div class="btn-group">
-            <button type="button" id="prevBtn" onclick="nextPrev(-1)">ተመለስ</button>
-            <button type="button" id="nextBtn" onclick="nextPrev(1)">ቀጥል</button>
+    <div id="successPage" class="page">
+        <div class="success-box">
+            <h2 id="displayTitle" style="color: var(--success);"></h2>
+            <p style="text-align: justify; font-size: 17px; line-height: 1.8;">
+                የኢትዮጵያ የሥራና ስልጠና ስትራቴጂ አካል ለመሆን ያደረጉት ምዝገባ በስኬት ተጠናቅቋል። መረጃዎ በዲጂታል የመረጃ ቋታችን ውስጥ በአግባቡ ተቀምጧል። ይህ ምዝገባ የእርስዎን ሙያዊ ብቃት ከሀገራዊ የልማት ግቦች ጋር ለማስተሳሰር የሚደረግ የሂደት መጀመሪያ ነው። 
+                <br><br>
+                ያስገቡት መረጃ እና የክፍያ ደረሰኝ በባለሙያዎች ተረጋግጦ፣ በቀጣይ 7 የሥራ ቀናት ውስጥ በስልክዎ ወይም በኢሜልዎ ዝርዝር መረጃ ይደርስዎታል። ለሀገር ግንባታ ላሳዩት ዝግጁነት እናመሰግናለን!
+            </p>
+            <button class="hero-btn" style="background:var(--success)" onclick="location.reload()">ተጠናቀቀ</button>
         </div>
-    </form>
+    </div>
+
 </div>
 
 <script>
     var currentTab = 0;
-    showTab(currentTab);
-
+    function showForm() { document.getElementById("welcomePage").classList.remove("active"); document.getElementById("formPage").classList.add("active"); showTab(0); }
     function showTab(n) {
         var x = document.getElementsByClassName("tab");
         x[n].style.display = "block";
-        document.getElementById("stepText").innerHTML = "ደረጃ " + (n + 1) + " ከ " + x.length;
-        document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
-        document.getElementById("nextBtn").innerHTML = (n == x.length - 1) ? "መረጃውን ላክ" : "ቀጥል";
+        document.getElementById("prevBtn").style.display = (n==0) ? "none" : "inline";
+        document.getElementById("nextBtn").innerHTML = (n == x.length-1) ? "ምዝገባውን ጨርስ" : "ቀጥል";
     }
-
     function nextPrev(n) {
         var x = document.getElementsByClassName("tab");
-        if (n == 1 && !validateForm()) return false;
+        if (n == 1 && !document.getElementById("regForm").checkValidity()) { alert("እባክዎ መረጃዎችን በትክክል ይሙሉ"); return; }
         x[currentTab].style.display = "none";
-        currentTab = currentTab + n;
-        if (currentTab >= x.length) {
-            document.getElementById("regForm").submit();
-            return false;
-        }
+        currentTab += n;
+        if (currentTab >= x.length) { submitForm(); return; }
         showTab(currentTab);
-        window.scrollTo(0, 0);
     }
-
-    function validateForm() {
-        var x = document.getElementsByClassName("tab")[currentTab];
-        var y = x.getElementsByTagName("input");
-        var valid = true;
-        for (var i = 0; i < y.length; i++) {
-            if (y[i].hasAttribute("required") && y[i].value == "") {
-                y[i].style.borderColor = "red";
-                valid = false;
-            } else {
-                y[i].style.borderColor = "#ddd";
-            }
-        }
-        if (!valid) alert("እባክዎ ግዴታ የሆኑ መረጃዎችን (Required) ይሙሉ!");
-        return valid;
+    function submitForm() {
+        const name = document.getElementById("userName").value;
+        const form = document.getElementById("regForm");
+        fetch("/", { method: "POST", body: new FormData(form) }).then(() => {
+            document.getElementById("formPage").classList.remove("active");
+            document.getElementById("successPage").classList.add("active");
+            document.getElementById("displayTitle").innerHTML = "እንኳን ደስ አላችሁ " + name + "!";
+        });
     }
 </script>
-
 </body>
 </html>
