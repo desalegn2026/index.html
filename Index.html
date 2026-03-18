@@ -5,135 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>የሥራና ስልጠና ስትራቴጂ ማገዣ መድረክ</title>
     <style>
-        :root { --primary: #0056b3; --success: #28a745; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { background: #fff; max-width: 800px; width: 100%; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .page { display: none; animation: fadeIn 0.5s; }
-        .active { display: block; }
-        .header-box { text-align: justify; line-height: 1.8; margin-bottom: 20px; }
-        .hero-btn { display: block; width: 100%; max-width: 300px; margin: 30px auto; padding: 15px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; }
-        .tab { display: none; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; box-sizing: border-box; }
-        input:invalid { border-color: #ffcccc; }
-        .success-box { text-align: center; border: 2px solid var(--success); padding: 30px; border-radius: 12px; background: #f0fff4; }
-        .payment-alert { background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 5px solid #ffc107; font-weight: bold; }
+        :root { --primary: #0056b3; --success: #28a745; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .container { background: #fff; max-width: 1000px; margin: auto; padding: 40px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+        
+        /* Progress Bar */
+        .progress-container { display: flex; justify-content: space-between; margin-bottom: 30px; position: relative; }
+        .progress-step { width: 30px; height: 30px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; z-index: 1; }
+        .progress-step.active { background: var(--primary); color: #fff; }
+
+        /* Grid Layout for Horizontal feel */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+
+        .tab { display: none; animation: fadeIn 0.4s ease; }
+        .active-tab { display: block; }
+
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        label { font-weight: 600; font-size: 14px; color: #555; display: block; margin-bottom: 5px; }
+
+        .btn-group { display: flex; justify-content: space-between; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+        button { padding: 12px 30px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .btn-next { background: var(--primary); color: white; }
+        .btn-prev { background: #e4e6eb; color: #333; }
+
+        .payment-box { background: #fff8e1; border: 2px dashed #ffc107; padding: 20px; text-align: center; border-radius: 10px; }
+        .success-box { text-align: center; padding: 50px; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
-    <div id="welcomePage" class="page active">
-        <div class="header-box">
+    <div id="landingPage" class="active-tab">
+        <div style="text-align: justify; line-height: 1.8;">
             <h2 style="color: var(--primary); text-align: center;">የኢትዮጵያ የሥራና ስልጠና ስትራቴጂ ማገዣ መድረክ</h2>
-            <p><strong>የሥራና ስልጠና ጉዞ ወደ ብሩህ ተስፋ!</strong></p>
-            <p>በአሁኑ ወቅት አገራችን ኢትዮጵያ በከፍተኛ የኢኮኖሚ ሽግግር እና የሪፎርም ሂደት ላይ ትገኛለች። ይህንን ሽግግር ከግብ ለማድረስ ደግሞ በዕውቀት፣ በክህሎት እና በስነ-ምግባር የታነጸ የሰው ኃይል መገንባት ቀዳሚው ተግባር ነው። <strong>የሥራና ስልጠና ሚኒስቴር</strong> ባወጣው ሀገራዊ ስትራቴጂ መሠረት፣ የግሉ ዘርፍ እና የመንግሥት ተቋማት ተቀናጅተው የሥራ አጥነትን ችግር እንዲቀረፉ አቅጣጫ ተቀምጧል። ይህ መድረክ የእርስዎን ሙያዊ አቅም ከሀገራዊ ፍላጎት ጋር ለማገናኘት የተዘጋጀ ኦፊሴላዊ የምዝገባ ሲስተም ነው።</p>
-            <button class="hero-btn" onclick="showForm()">ለመመዝገብ እዚህ ይጫኑ</button>
+            <p><strong>የሥራና ስልጠና ጉዞ ወደ ብሩህ ተስፋ! / Path to Prosperity!</strong></p>
+            <p>በአሁኑ ወቅት አገራችን ኢትዮጵያ በከፍተኛ የኢኮኖሚ ሽግግር ላይ ትገኛለች። የሥራና ስልጠና ሚኒስቴር ባወጣው ሀገራዊ ስትራቴጂ መሠረት፣ የግሉ ዘርፍ እና የመንግሥት ተቋማት ተቀናጅተው የሥራ አጥነትን ችግር እንዲቀረፉ አቅጣጫ ተቀምጧል። ይህ መድረክ የእርስዎን ሙያዊ አቅም ከሀገራዊ ፍላጎት ጋር ለማገናኘት የተዘጋጀ ኦፊሴላዊ የምዝገባ ሲስተም ነው።</p>
+            <button class="btn-next" style="width: 100%;" onclick="startForm()">ምዝገባ ለመጀመር እዚህ ይጫኑ / Click to Start Registration</button>
         </div>
     </div>
 
-    <div id="formPage" class="page">
-        <form id="regForm" name="job-app" method="POST" data-netlify="true" enctype="multipart/form-data">
-            <input type="hidden" name="form-name" value="job-app" />
-            
-            <div class="tab">
-                <h3 style="color: var(--primary);">ደረጃ 1፡ የግል መረጃ</h3>
-                <label>ሙሉ ስም (ከነአባት) *</label>
-                <input id="userName" name="full_name" placeholder="ለምሳሌ፡ አበበ በቀለ ካሳ" required>
-                <label>ስልክ ቁጥር *</label>
-                <input name="phone" type="tel" placeholder="09..." required>
-                <label>የትምህርት ደረጃ *</label>
-                <input name="edu" placeholder="ለምሳሌ፡ በሲቪል ምህንድስና ዲግሪ" required>
-            </div>
+    <div id="formContainer" style="display: none;">
+        <div class="progress-container">
+            <div class="progress-step active" id="p1">1</div>
+            <div class="progress-step" id="p2">2</div>
+            <div class="progress-step" id="p3">3</div>
+            <div class="progress-step" id="p4">4</div>
+        </div>
 
-            <div class="tab">
-                <h3 style="color: var(--primary);">ደረጃ 2፡ ክፍያና ፋይሎች</h3>
-                <div class="payment-alert">
-                    የምዝገባ አገልግሎት ክፍያ 100 ብር በቴሌብር ቁጥር <span style="color:red">0924364056</span> ከፍለው ደረሰኙን እዚህ ያያይዙ።
+        <form id="mainForm" name="engineer-belay-portal" method="POST" data-netlify="true" enctype="multipart/form-data">
+            <input type="hidden" name="form-name" value="engineer-belay-portal" />
+
+            <div class="tab active-tab">
+                <h3 style="color: var(--primary);">ደረጃ 1: የግል መረጃ (Personal Info)</h3>
+                <div class="form-grid">
+                    <div><label>ሙሉ ስም (Full Name) *</label><input name="name" id="userName" required></div>
+                    <div><label>ጾታ (Gender) *</label><select name="gender" required><option value="">ይምረጡ</option><option>ወንድ/Male</option><option>ሴት/Female</option></select></div>
+                    <div><label>የትውልድ ቦታ (Place of Birth)</label><input name="birth_place" required></div>
+                    <div><label>ዜግነት (Nationality)</label><input name="nationality" required></div>
+                    <div><label>የትውልድ ቀን (Date of Birth)</label><input type="date" name="dob" required></div>
+                    <div><label>የመታወቂያ ቁጥር (ID Number)</label><input name="id_no" required></div>
                 </div>
-                <label style="margin-top:15px; display:block;">የክፍያ ደረሰኝ (ፎቶ) *</label>
-                <input type="file" name="receipt" accept="image/*" required>
-                <label>ሲቪ (CV/Resume) *</label>
-                <input type="file" name="cv" accept=".pdf,.doc,.docx" required>
             </div>
 
-            <div style="display:flex; gap:10px; margin-top:20px;">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="flex:1; background:#ccc;">ተመለስ</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)" style="flex:1; background:var(--primary); color:#fff;">ቀጥል</button>
+            <div class="tab">
+                <h3 style="color: var(--primary);">ደረጃ 2: አድራሻና ትምህርት (Contact & Edu)</h3>
+                <div class="form-grid">
+                    <div><label>ስልክ ቁጥር (Phone) *</label><input name="phone" type="tel" required></div>
+                    <div><label>ኢሜል (Email)</label><input name="email" type="email"></div>
+                    <div><label>ከተማ (City)</label><input name="city"></div>
+                    <div><label>ትምህርት ደረጃ (Education)</label><input name="edu" required></div>
+                    <div class="full-width"><label>የጥናት መስክ (Field of Study) *</label><input name="field" required></div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <h3 style="color: var(--primary);">ደረጃ 3: ልምድና ክህሎት (Work & Skills)</h3>
+                <div class="form-grid">
+                    <div><label>ሥራ ልምድ (Experience)</label><input name="exp"></div>
+                    <div><label>የመጨረሻ የሥራ መደብ (Job Title)</label><input name="last_job"></div>
+                    <div class="full-width"><label>ልዩ ክህሎቶች (Technical Skills)</label><textarea name="skills"></textarea></div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <h3 style="color: var(--primary);">ደረጃ 4: ክፍያና ሰነዶች (Payment & Docs)</h3>
+                <div class="payment-box">
+                    <p><strong>የቴሌብር (telebirr) ክፍያ፡ 100 ብር</strong></p>
+                    <p>ቁጥር (Number): <span style="font-size: 20px; color: #d32f2f;">0924364056</span></p>
+                </div>
+                <div class="form-grid" style="margin-top: 20px;">
+                    <div><label>የክፍያ ደረሰኝ (Receipt) *</label><input type="file" name="receipt" accept="image/*" required></div>
+                    <div><label>ሲቪ (CV/Resume) *</label><input type="file" name="cv" accept=".pdf" required></div>
+                    <div class="full-width"><label>የትምህርት ማስረጃ (Credentials) *</label><input type="file" name="docs" required></div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn-prev" id="prevBtn" onclick="move(-1)">ተመለስ / Back</button>
+                <button type="button" class="btn-next" id="nextBtn" onclick="move(1)">ቀጥል / Next</button>
             </div>
         </form>
     </div>
 
-    <div id="successPage" class="page">
+    <div id="successPage" style="display: none;">
         <div class="success-box">
-            <div style="font-size: 50px; color: var(--success);">✔</div>
-            <h2 id="displayTitle" style="color: var(--success);">እንኳን ደስ አላችሁ!</h2>
-            <p id="successBody" style="text-align: justify; font-size: 17px; line-height: 1.8; color: #444;">
-                የኢትዮጵያ የሥራና ስልጠና ስትራቴጂ አካል ለመሆን ያደረጉት ምዝገባ በስኬት ተጠናቅቋል። መረጃዎ በዲጂታል የመረጃ ቋታችን ውስጥ በአግባቡ ተቀምጧል። ይህ ምዝገባ የእርስዎን ሙያዊ ብቃት ከሀገራዊ የልማት ግቦች ጋር ለማስተሳሰር የሚደረግ የሂደት መጀመሪያ ነው። 
-                <br><br>
-                ያስገቡት መረጃ እና የክፍያ ደረሰኝ በባለሙያዎች ተረጋግጦ፣ በቀጣይ 7 የሥራ ቀናት ውስጥ በስልክዎ ወይም በኢሜልዎ ዝርዝር መረጃ ይደርስዎታል። ለሀገር ግንባታ ላሳዩት ዝግጁነት እናመሰግናለን!
-            </p>
-            <button class="hero-btn" style="background:var(--success)" onclick="location.reload()">ተጠናቀቀ</button>
+            <h1 style="color: var(--success);">እንኳን ደስ አለዎት! / Congratulations!</h1>
+            <h2 id="finalName" style="color: var(--primary);"></h2>
+            <div style="text-align: justify; background: #f9f9f9; padding: 30px; border-radius: 10px; line-height: 1.8;">
+                <p><strong>[አማርኛ]</strong> የምዝገባ ሂደቱን በስኬት አጠናቅቀዋል። ያስገቡት መረጃ እና የትምህርት ማስረጃዎች በሲስተማችን ውስጥ ተመዝግበዋል። መረጃዎ በባለሙያዎች ተረጋግጦ በቀጣይ 7 የሥራ ቀናት ውስጥ እናገኝዎታለን። ለሀገር ግንባታ ላሳዩት ዝግጁነት እናመሰግናለን!</p>
+                <hr>
+                <p><strong>[English]</strong> You have successfully completed the registration process. Your professional data and educational credentials have been secured in our database. Our experts will verify your documents and contact you within the next 7 working days. Thank you for your commitment to national development!</p>
+            </div>
+            <button class="btn-next" style="margin-top: 20px;" onclick="location.reload()">ጨርስ / Finish</button>
         </div>
     </div>
-
 </div>
 
 <script>
-    var currentTab = 0;
-
-    function showForm() {
-        document.getElementById("welcomePage").classList.remove("active");
-        document.getElementById("formPage").classList.add("active");
-        showTab(0);
+    let current = 0;
+    const tabs = document.getElementsByClassName("tab");
+    
+    function startForm() {
+        document.getElementById("landingPage").style.display = "none";
+        document.getElementById("formContainer").style.display = "block";
+        showTab(current);
     }
 
     function showTab(n) {
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
+        tabs[n].classList.add("active-tab");
         document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
-        document.getElementById("nextBtn").innerHTML = (n == x.length - 1) ? "ምዝገባውን ጨርስ" : "ቀጥል";
+        document.getElementById("nextBtn").innerHTML = (n == tabs.length - 1) ? "መረጃውን ላክ / Submit" : "ቀጥል / Next";
+        updateProgress(n);
     }
 
-    function nextPrev(n) {
-        var x = document.getElementsByClassName("tab");
-        // Validation check
-        if (n == 1) {
-            var inputs = x[currentTab].getElementsByTagName("input");
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].hasAttribute("required") && inputs[i].value == "") {
-                    alert("እባክዎ ሁሉንም መረጃዎች በትክክል ይሙሉ (ፋይሎችን ማያያዝዎን ያረጋግጡ)");
-                    return false;
-                }
-            }
-        }
-
-        x[currentTab].style.display = "none";
-        currentTab = currentTab + n;
-
-        if (currentTab >= x.length) {
-            submitForm();
-            return false;
-        }
-        showTab(currentTab);
+    function move(n) {
+        if (n == 1 && !validate()) return;
+        tabs[current].classList.remove("active-tab");
+        current += n;
+        if (current >= tabs.length) { submit(); return; }
+        showTab(current);
     }
 
-    function submitForm() {
+    function validate() {
+        const inputs = tabs[current].querySelectorAll("input[required], select[required]");
+        for (let i = 0; i < inputs.length; i++) {
+            if (!inputs[i].value) { alert("እባክዎ ግዴታ የሆኑትን መረጃዎች ይሙሉ!"); return false; }
+        }
+        return true;
+    }
+
+    function updateProgress(n) {
+        const steps = document.getElementsByClassName("progress-step");
+        for (let i = 0; i < steps.length; i++) {
+            steps[i].classList.toggle("active", i <= n);
+        }
+    }
+
+    function submit() {
         const name = document.getElementById("userName").value;
-        const form = document.getElementById("regForm");
-        const formData = new FormData(form);
-
-        // Netlify submission
-        fetch("/", {
-            method: "POST",
-            body: formData
-        }).then(() => {
-            document.getElementById("formPage").classList.remove("active");
-            document.getElementById("successPage").classList.add("active");
-            document.getElementById("displayTitle").innerHTML = "እንኳን ደስ አላችሁ " + name + "!";
-        }).catch(() => {
-            alert("የግንኙነት ችግር አጋጥሟል፣ እባክዎ በድጋሚ ይሞክሩ።");
+        const form = document.getElementById("mainForm");
+        fetch("/", { method: "POST", body: new FormData(form) }).then(() => {
+            document.getElementById("formContainer").style.display = "none";
+            document.getElementById("successPage").style.display = "block";
+            document.getElementById("finalName").innerHTML = name;
         });
     }
 </script>
