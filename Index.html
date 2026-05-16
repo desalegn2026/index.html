@@ -7,419 +7,199 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+Ethiopic:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #00c851;
-    --gold: #ffd700;
-    --red: #e8003d;
-    --dark: #050e1a;
-    --card: #0a1628;
-    --text: #e8f0fe;
-    --muted: #8899bb;
-    --accent: #00e5ff;
+    --green:#00c851; --gold:#ffd700; --red:#e8003d;
+    --dark:#050e1a; --card:#0a1628; --card2:#0d1f3c;
+    --text:#e8f0fe; --muted:#8899bb; --accent:#00e5ff;
   }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Noto Sans Ethiopic','Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* HERO */
+  .hero-header{text-align:center;padding:50px 20px 30px;position:relative;overflow:hidden;}
+  .hero-header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+    background:radial-gradient(ellipse at center,rgba(0,200,81,.08) 0%,transparent 60%),
+               radial-gradient(ellipse at 80% 20%,rgba(0,229,255,.06) 0%,transparent 50%);
+    animation:pulse-bg 6s ease-in-out infinite alternate;}
+  @keyframes pulse-bg{0%{transform:scale(1) rotate(0deg);}100%{transform:scale(1.1) rotate(3deg);}}
+  .brand-title{font-family:'Orbitron',sans-serif;font-size:clamp(2.8rem,8vw,6rem);font-weight:900;
+    letter-spacing:.05em;display:inline-block;line-height:1;}
+  .brand-title span{display:inline-block;animation:colorCycle 3s linear infinite;}
+  .brand-title span:nth-child(1){animation-delay:0s}.brand-title span:nth-child(2){animation-delay:.15s}
+  .brand-title span:nth-child(3){animation-delay:.3s}.brand-title span:nth-child(4){animation-delay:.45s}
+  .brand-title span:nth-child(5){animation-delay:.6s}.brand-title span:nth-child(6){animation-delay:.75s}
+  .brand-title span:nth-child(7){animation-delay:.9s}.brand-title span:nth-child(8){animation-delay:1.05s}
+  .brand-title span:nth-child(9){animation-delay:1.2s}.brand-title span:nth-child(10){animation-delay:1.35s}
+  .brand-title span:nth-child(11){animation-delay:1.5s}.brand-title span:nth-child(12){animation-delay:1.65s}
+  @keyframes colorCycle{
+    0%{color:#00c851;text-shadow:0 0 20px #00c851}16%{color:#ffd700;text-shadow:0 0 20px #ffd700}
+    33%{color:#e8003d;text-shadow:0 0 20px #e8003d}50%{color:#00e5ff;text-shadow:0 0 20px #00e5ff}
+    66%{color:#ff6b00;text-shadow:0 0 20px #ff6b00}83%{color:#c400ff;text-shadow:0 0 20px #c400ff}
+    100%{color:#00c851;text-shadow:0 0 20px #00c851}}
+  .eth-flag-bar{display:flex;margin:18px auto 0;width:min(300px,60%);height:5px;border-radius:3px;overflow:hidden;}
+  .eth-flag-bar div{flex:1;}.eth-flag-bar .g{background:#009a44;}.eth-flag-bar .y{background:#ffd700;}.eth-flag-bar .r{background:#da121a;}
+  .tagline{margin:30px auto 10px;max-width:700px;font-size:clamp(1rem,2.5vw,1.25rem);line-height:1.8;
+    color:var(--text);font-weight:600;text-align:center;padding:0 16px;}
+  .tagline .hl{color:var(--gold);font-weight:800;}
 
-  body {
-    font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
-    background: var(--dark);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+  /* STATS */
+  .stats-bar{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding:30px 20px;
+    border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:10px;}
+  .stat{text-align:center;}
+  .stat-num{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:700;color:var(--gold);line-height:1;}
+  .stat-label{font-size:.78rem;color:var(--muted);margin-top:4px;}
 
-  /* ========== ANIMATED HEADER ========== */
-  .hero-header {
-    text-align: center;
-    padding: 50px 20px 30px;
-    position: relative;
-    overflow: hidden;
-  }
+  /* INFO CARDS */
+  .info-section{max-width:860px;margin:0 auto;padding:20px 20px 40px;}
+  .info-card{background:var(--card);border:1px solid rgba(0,200,81,.2);border-radius:16px;
+    padding:32px 28px;margin-bottom:20px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
+  .info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--green),var(--gold),var(--red));}
+  .info-card:hover{border-color:rgba(0,200,81,.5);box-shadow:0 0 30px rgba(0,200,81,.08);}
+  .section-icon{font-size:2rem;margin-bottom:10px;display:block;}
+  .section-title{font-size:1.3rem;font-weight:800;color:var(--gold);margin-bottom:14px;line-height:1.4;}
+  .section-body{font-size:.97rem;line-height:2;color:#c5d5ee;}
+  .benefit-item{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+  .benefit-bullet{width:8px;height:8px;border-radius:50%;background:var(--green);margin-top:8px;flex-shrink:0;box-shadow:0 0 8px var(--green);}
+  .price-badge{display:inline-block;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;
+    font-weight:900;padding:8px 24px;border-radius:50px;font-size:1.1rem;margin-top:16px;box-shadow:0 4px 20px rgba(255,215,0,.3);}
 
-  .hero-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at center, rgba(0,200,81,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(0,229,255,0.06) 0%, transparent 50%);
-    animation: pulse-bg 6s ease-in-out infinite alternate;
-  }
+  /* CTA */
+  .cta-wrap{text-align:center;padding:10px 20px 50px;}
+  .cta-btn{position:relative;display:inline-block;padding:18px 52px;
+    font-family:'Noto Sans Ethiopic',sans-serif;font-size:1.15rem;font-weight:800;
+    color:#000;border:none;border-radius:50px;cursor:pointer;overflow:hidden;
+    background:linear-gradient(90deg,#00c851,#ffd700,#e8003d,#00e5ff,#00c851);
+    background-size:300% 100%;animation:gradientShift 3s linear infinite;
+    transition:transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(0,200,81,.4);letter-spacing:.03em;}
+  .cta-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 40px rgba(0,200,81,.6);}
+  .cta-btn:active{transform:scale(.98);}
+  @keyframes gradientShift{0%{background-position:0% 50%}100%{background-position:300% 50%}}
 
-  @keyframes pulse-bg {
-    0% { transform: scale(1) rotate(0deg); }
-    100% { transform: scale(1.1) rotate(3deg); }
-  }
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,8,20,.96);
+    z-index:1000;overflow-y:auto;padding:30px 16px;backdrop-filter:blur(8px);}
+  .modal-overlay.active{display:flex;align-items:flex-start;justify-content:center;}
+  .modal-box{background:var(--card);border:1px solid rgba(0,229,255,.2);border-radius:20px;
+    width:100%;max-width:600px;padding:36px 28px 40px;position:relative;
+    animation:slideUp .4s cubic-bezier(.16,1,.3,1);box-shadow:0 0 60px rgba(0,100,200,.15);}
+  @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  .modal-close{position:absolute;top:16px;right:20px;font-size:1.5rem;color:var(--muted);
+    cursor:pointer;background:none;border:none;line-height:1;transition:color .2s;}
+  .modal-close:hover{color:var(--text);}
+  .modal-title{font-size:1.4rem;font-weight:800;color:var(--accent);margin-bottom:4px;text-align:center;}
+  .modal-sub{font-size:.88rem;color:var(--muted);text-align:center;margin-bottom:22px;}
 
-  .brand-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.8rem, 8vw, 6rem);
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    position: relative;
-    display: inline-block;
-    line-height: 1;
-  }
+  /* STEP DOTS */
+  .steps-indicator{display:flex;justify-content:center;gap:8px;margin-bottom:26px;}
+  .step-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .3s;}
+  .step-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent);transform:scale(1.3);}
+  .step-dot.done{background:var(--green);}
 
-  .brand-title span {
-    display: inline-block;
-    animation: colorCycle 3s linear infinite;
-  }
+  /* STEPS */
+  .step-page{display:none;}
+  .step-page.active{display:block;animation:fadeIn .3s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+  .step-heading{font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:18px;
+    padding-bottom:10px;border-bottom:1px solid rgba(255,215,0,.2);}
 
-  .brand-title span:nth-child(1)  { animation-delay: 0s; }
-  .brand-title span:nth-child(2)  { animation-delay: 0.15s; }
-  .brand-title span:nth-child(3)  { animation-delay: 0.3s; }
-  .brand-title span:nth-child(4)  { animation-delay: 0.45s; }
-  .brand-title span:nth-child(5)  { animation-delay: 0.6s; }
-  .brand-title span:nth-child(6)  { animation-delay: 0.75s; }
-  .brand-title span:nth-child(7)  { animation-delay: 0.9s; }
-  .brand-title span:nth-child(8)  { animation-delay: 1.05s; }
-  .brand-title span:nth-child(9)  { animation-delay: 1.2s; }
-  .brand-title span:nth-child(10) { animation-delay: 1.35s; }
-  .brand-title span:nth-child(11) { animation-delay: 1.5s; }
-  .brand-title span:nth-child(12) { animation-delay: 1.65s; }
+  /* FORM FIELDS */
+  .form-group{margin-bottom:15px;}
+  .form-group label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .form-group input,.form-group select{width:100%;padding:13px 16px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+    border-radius:10px;color:var(--text);font-family:'Noto Sans Ethiopic',sans-serif;
+    font-size:.95rem;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none;}
+  .form-group input:focus,.form-group select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,229,255,.1);}
+  .form-group select option{background:#0a1628;color:var(--text);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:480px){.form-row{grid-template-columns:1fr;}}
 
-  @keyframes colorCycle {
-    0%   { color: #00c851; text-shadow: 0 0 20px #00c851; }
-    16%  { color: #ffd700; text-shadow: 0 0 20px #ffd700; }
-    33%  { color: #e8003d; text-shadow: 0 0 20px #e8003d; }
-    50%  { color: #00e5ff; text-shadow: 0 0 20px #00e5ff; }
-    66%  { color: #ff6b00; text-shadow: 0 0 20px #ff6b00; }
-    83%  { color: #c400ff; text-shadow: 0 0 20px #c400ff; }
-    100% { color: #00c851; text-shadow: 0 0 20px #00c851; }
-  }
+  /* DEPARTMENT CARDS */
+  .dept-grid{display:grid;gap:12px;margin-bottom:6px;}
+  .dept-card{border:2px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;cursor:pointer;
+    transition:all .25s;display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.02);}
+  .dept-card:hover{border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.04);}
+  .dept-card.selected{border-color:var(--accent);background:rgba(0,229,255,.08);box-shadow:0 0 20px rgba(0,229,255,.12);}
+  .dept-radio{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.3);
+    flex-shrink:0;margin-top:2px;transition:all .2s;position:relative;}
+  .dept-card.selected .dept-radio{background:var(--accent);border-color:var(--accent);}
+  .dept-card.selected .dept-radio::after{content:'✓';position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);color:#000;font-size:.72rem;font-weight:900;}
+  .dept-icon{font-size:1.8rem;flex-shrink:0;}
+  .dept-info{flex:1;}
+  .dept-name{font-weight:800;font-size:.95rem;color:var(--text);margin-bottom:3px;}
+  .dept-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
 
-  .eth-flag-bar {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin: 18px auto 0;
-    width: min(300px, 60%);
-    height: 5px;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .eth-flag-bar div { flex: 1; }
-  .eth-flag-bar .g { background: #009a44; }
-  .eth-flag-bar .y { background: #ffd700; }
-  .eth-flag-bar .r { background: #da121a; }
+  /* UPLOAD */
+  .upload-box{border:2px dashed rgba(255,255,255,.15);border-radius:14px;padding:28px 16px;
+    text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);position:relative;}
+  .upload-box:hover{border-color:var(--accent);background:rgba(0,229,255,.04);}
+  .upload-box.has-file{border-color:var(--green);background:rgba(0,200,81,.05);}
+  .upload-box input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .upload-icon{font-size:2.4rem;margin-bottom:8px;display:block;}
+  .upload-label{font-size:.85rem;color:var(--muted);}
+  .upload-preview{max-width:100%;max-height:160px;border-radius:10px;margin-top:12px;display:none;object-fit:cover;}
 
-  .tagline {
-    margin: 30px auto 10px;
-    max-width: 700px;
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    line-height: 1.8;
-    color: var(--text);
-    font-weight: 600;
-    text-align: center;
-    padding: 0 16px;
-  }
+  /* PAYMENT */
+  .payment-box{background:var(--card2);border:1px solid rgba(255,215,0,.25);border-radius:14px;
+    padding:22px;margin-bottom:18px;text-align:center;}
+  .mpesa-logo{font-size:2.5rem;margin-bottom:6px;}
+  .mpesa-title{font-weight:800;color:var(--gold);font-size:1rem;margin-bottom:8px;}
+  .mpesa-number{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;
+    color:var(--accent);letter-spacing:.1em;margin-bottom:4px;}
+  .mpesa-amount{display:inline-block;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;
+    font-weight:900;padding:5px 18px;border-radius:50px;font-size:.95rem;margin:8px 0 4px;}
+  .warning-box{background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.18);
+    border-radius:12px;padding:14px;font-size:.82rem;line-height:1.8;color:#a0c0e0;margin-bottom:18px;}
+  .warning-box strong{color:var(--gold);}
 
-  .tagline .highlight {
-    color: var(--gold);
-    font-weight: 800;
-  }
+  /* BUTTONS */
+  .btn-row{display:flex;gap:12px;margin-top:12px;}
+  .btn-next{flex:1;padding:14px;background:linear-gradient(135deg,var(--accent),#0088cc);
+    color:#000;border:none;border-radius:12px;font-size:1rem;font-weight:800;
+    font-family:'Noto Sans Ethiopic',sans-serif;cursor:pointer;
+    transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,229,255,.25);}
+  .btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,.4);}
+  .btn-back{padding:14px 20px;background:rgba(255,255,255,.06);color:var(--muted);
+    border:1px solid rgba(255,255,255,.1);border-radius:12px;font-size:.9rem;cursor:pointer;
+    font-family:'Noto Sans Ethiopic',sans-serif;transition:all .2s;}
+  .btn-back:hover{background:rgba(255,255,255,.12);color:var(--text);}
+  .btn-submit{flex:1;padding:15px;background:linear-gradient(135deg,var(--green),#00a040);
+    color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:800;
+    font-family:'Noto Sans Ethiopic',sans-serif;cursor:pointer;
+    transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,200,81,.3);}
+  .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,200,81,.5);}
 
-  /* ========== HERO DIVIDER ========== */
-  .divider {
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), var(--green), var(--gold), var(--red), transparent);
-    opacity: 0.5;
-  }
-
-  /* ========== INFO SECTION ========== */
-  .info-section {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 20px 20px 40px;
-  }
-
-  .info-card {
-    background: var(--card);
-    border: 1px solid rgba(0,200,81,0.2);
-    border-radius: 16px;
-    padding: 32px 28px;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-
-  .info-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
-  }
-
-  .info-card:hover {
-    border-color: rgba(0,200,81,0.5);
-    box-shadow: 0 0 30px rgba(0,200,81,0.08);
-  }
-
-  .section-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    display: block;
-  }
-
-  .section-title {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--gold);
-    margin-bottom: 14px;
-    line-height: 1.4;
-  }
-
-  .section-body {
-    font-size: 0.97rem;
-    line-height: 2;
-    color: #c5d5ee;
-  }
-
-  .benefit-item {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 14px;
-    align-items: flex-start;
-  }
-
-  .benefit-bullet {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    margin-top: 8px;
-    flex-shrink: 0;
-    box-shadow: 0 0 8px var(--green);
-  }
-
-  .price-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #ffd700, #ff8c00);
-    color: #000;
-    font-weight: 900;
-    padding: 8px 24px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    margin-top: 16px;
-    box-shadow: 0 4px 20px rgba(255,215,0,0.3);
-  }
-
-  /* ========== CTA BUTTON ========== */
-  .cta-wrap {
-    text-align: center;
-    padding: 10px 20px 50px;
-  }
-
-  .cta-btn {
-    position: relative;
-    display: inline-block;
-    padding: 18px 52px;
-    font-family: 'Noto Sans Ethiopic', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #000;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    overflow: hidden;
-    background: linear-gradient(90deg, #00c851, #ffd700, #e8003d, #00e5ff, #00c851);
-    background-size: 300% 100%;
-    animation: gradientShift 3s linear infinite;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 6px 30px rgba(0,200,81,0.4);
-    letter-spacing: 0.03em;
-  }
-
-  .cta-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 10px 40px rgba(0,200,81,0.6);
-  }
-
-  .cta-btn:active { transform: scale(0.98); }
-
-  @keyframes gradientShift {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-  }
-
-  /* ========== MODAL ========== */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(2,8,20,0.95);
-    z-index: 1000;
-    overflow-y: auto;
-    padding: 30px 16px;
-    backdrop-filter: blur(6px);
-  }
-
-  .modal-overlay.active { display: flex; align-items: flex-start; justify-content: center; }
-
-  .modal-box {
-    background: var(--card);
-    border: 1px solid rgba(0,229,255,0.25);
-    border-radius: 20px;
-    width: 100%;
-    max-width: 560px;
-    padding: 36px 28px 40px;
-    position: relative;
-    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 60px rgba(0,100,200,0.15);
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 16px; right: 20px;
-    font-size: 1.5rem;
-    color: var(--muted);
-    cursor: pointer;
-    background: none;
-    border: none;
-    line-height: 1;
-    transition: color 0.2s;
-  }
-  .modal-close:hover { color: var(--text); }
-
-  .modal-title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--accent);
-    margin-bottom: 6px;
-    text-align: center;
-  }
-
-  .modal-sub {
-    font-size: 0.88rem;
-    color: var(--muted);
-    text-align: center;
-    margin-bottom: 28px;
-  }
-
-  .form-group {
-    margin-bottom: 18px;
-  }
-
-  .form-group label {
-    display: block;
-    font-size: 0.88rem;
-    color: var(--muted);
-    margin-bottom: 7px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 13px 16px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: 'Noto Sans Ethiopic', sans-serif;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,229,255,0.1);
-  }
-
-  .form-group select option {
-    background: #0a1628;
-    color: var(--text);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-
-  .submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--green), #00a040);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.05rem;
-    font-weight: 800;
-    font-family: 'Noto Sans Ethiopic', sans-serif;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(0,200,81,0.3);
-    letter-spacing: 0.03em;
-  }
-  .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,200,81,0.5);
-  }
-
-  /* ========== SUCCESS ========== */
-  .success-screen {
-    display: none;
-    text-align: center;
-    padding: 30px 0;
-  }
-  .success-screen.active { display: block; }
-  .success-icon { font-size: 4rem; margin-bottom: 16px; }
-  .success-title { font-size: 1.5rem; font-weight: 800; color: var(--green); margin-bottom: 10px; }
-  .success-msg { color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
-
-  /* ========== STATS BAR ========== */
-  .stats-bar {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    padding: 30px 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    margin-bottom: 10px;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  /* SUCCESS */
+  .success-screen{display:none;text-align:center;padding:16px 0;}
+  .success-screen.active{display:block;animation:fadeIn .5s ease;}
+  .confetti-row{font-size:2.5rem;letter-spacing:.2em;margin-bottom:14px;animation:bounce 1s ease infinite alternate;}
+  @keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+  .congrats-badge{display:inline-block;background:linear-gradient(135deg,var(--green),#00a040);
+    color:#fff;font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;
+    padding:10px 28px;border-radius:50px;margin-bottom:14px;
+    box-shadow:0 4px 24px rgba(0,200,81,.4);letter-spacing:.05em;}
+  .success-name{font-size:1.15rem;color:var(--gold);font-weight:800;margin-bottom:14px;line-height:1.5;}
+  .success-msg{color:#a0c0e0;font-size:.9rem;line-height:2;margin-bottom:4px;}
+  .tg-btn{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:14px 28px;
+    background:linear-gradient(135deg,#0088cc,#006699);color:#fff;border-radius:50px;
+    text-decoration:none;font-weight:800;font-size:.95rem;
+    transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,136,204,.4);}
+  .tg-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,204,.6);}
+  .tg-note{font-size:.8rem;color:var(--muted);margin-top:14px;}
 </style>
 </head>
 <body>
 
 <!-- HERO -->
 <div class="hero-header">
-  <div class="brand-title" aria-label="Ethio-Coder">
+  <div class="brand-title" aria-label="Ethio-Coders">
     <span>E</span><span>t</span><span>h</span><span>i</span><span>o</span><span>-</span><span>C</span><span>o</span><span>d</span><span>e</span><span>r</span><span>s</span>
   </div>
   <div class="eth-flag-bar"><div class="g"></div><div class="y"></div><div class="r"></div></div>
   <p class="tagline">
-    <span class="highlight">የነገውን ስኬት ዛሬ በመወሰን ይጀምሩ።</span><br>
-    የኢትዮ-ኮደርስ ስልጠና ሰርተፊኬት — <span class="highlight">የዲጂታል አለም መግቢያ ቁልፍዎ ነው።</span>
+    <span class="hl">የነገውን ስኬት ዛሬ በመወሰን ይጀምሩ።</span><br>
+    የኢትዮ-ኮደርስ ስልጠና ሰርተፊኬት — <span class="hl">የዲጂታል አለም መግቢያ ቁልፍዎ ነው።</span>
   </p>
 </div>
 
@@ -428,56 +208,40 @@
   <div class="stat"><div class="stat-num">100K+</div><div class="stat-label">ተሳታፊዎች</div></div>
   <div class="stat"><div class="stat-num">12</div><div class="stat-label">ክልሎች</div></div>
   <div class="stat"><div class="stat-num">Udacity</div><div class="stat-label">ዓለም አቀፍ ሰርተፊኬት</div></div>
-  <div class="stat"><div class="stat-num">80 ብር</div><div class="stat-label">ብቻ!</div></div>
+  <div class="stat"><div class="stat-num">85 ብር</div><div class="stat-label">ብቻ!</div></div>
 </div>
 
-<!-- INFO SECTION -->
+<!-- INFO -->
 <div class="info-section">
-
   <div class="info-card">
     <span class="section-icon">🎓</span>
     <div class="section-title">ወደ Ethio Coders ብሔራዊ የስልጠና እገዛ ማዕከል እንኳን ደህና መጡ!</div>
   </div>
-
   <div class="info-card">
     <span class="section-icon">📌</span>
     <div class="section-title">Ethio Coders (ኢትዮ ኮደርስ) ምንድን ነው?</div>
     <div class="section-body">
-      Ethio Coders በኢትዮጵያ ታሪክ ትልቁ እና ሰፊው ብሔራዊ የዲጂታል ክህሎት ማሰልጠኛ ፕሮግራም ነው። ይህ ፕሮጀክት በሀገራችን የቴክኖሎጂ ስርጭትን ለማፋጠን እና ዜጎችን በዲጂታል እውቀት ለማበልጸግ በመንግስት ከፍተኛ ትኩረት ተሰጥቶት የተቀረጸ ነው።
-      <br><br>
-      ስልጠናው ከ <strong style="color:var(--gold)">Udacity</strong> — ከሲሊኮን ቫሊ ታዋቂ የቴክኖሎጂ ትምህርት ተቋም ጋር በመተባበር የሚሰጥ ሲሆን፣ የሚሰጠው ሰርተፊኬት ዓለም አቀፍ እውቅና ያለው ነው።
+      Ethio Coders በኢትዮጵያ ታሪክ ትልቁ እና ሰፊው ብሔራዊ የዲጂታል ክህሎት ማሰልጠኛ ፕሮግራም ነው። ይህ ፕሮጀክት በሀገራችን የቴክኖሎጂ ስርጭትን ለማፋጠን እና ዜጎችን በዲጂታል እውቀት ለማበልጸግ በመንግስት ከፍተኛ ትኩረት ተሰጥቶት የተቀረጸ ነው።<br><br>
+      ስልጠናው ከ <strong style="color:var(--gold)">Udacity</strong> — ከሲሊኮን ቫሊ ታዋቂ ተቋም ጋር በመተባበር የሚሰጥ ሲሆን ዓለም አቀፍ እውቅና ያለው ሰርተፊኬት ያስገኛል።
     </div>
   </div>
-
   <div class="info-card">
     <span class="section-icon">🚀</span>
-    <div class="section-title">ይህንን ስልጠና ማጠናቀቅ የሚሰጠው እውነተኛ ጥቅም</div>
+    <div class="section-title">ይህንን ስልጠና ማጠናቀቅ የሚሰጠው ጥቅሞች</div>
     <div class="section-body">
-      <div class="benefit-item">
-        <div class="benefit-bullet"></div>
-        <div><strong style="color:var(--text)">ዓለም አቀፍ የ Udacity ሰርተፊኬት</strong> — ትምህርቱን ሲያጠናቅቁ ቀጥታ ከ Udacity የሚሰጥ ሰርተፊኬት ያገኛሉ፣ በሀገር ውስጥም ሆነ ዓለም አቀፍ ደረጃ ተቀባይነት ያለው ነው።</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-bullet"></div>
-        <div><strong style="color:var(--text)">የነገው ስራ ዓለም መተማመኛ</strong> — የዲጂታል እና ኮምፒውተር እውቀት ተወዳዳሪ እና ተመራጭ ያደርግዎታል።</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-bullet"></div>
-        <div><strong style="color:var(--text)">የአእምሮ እረፍት</strong> — ማንኛውንም የስጋት ጫና፣ የክፍያ እና የምዝገባ መስተጓጎል በአንድ ጊዜ ያስወግዳሉ።</div>
-      </div>
+      <div class="benefit-item"><div class="benefit-bullet"></div><div><strong style="color:var(--text)">ዓለም አቀፍ የ Udacity ሰርተፊኬት</strong> — ሀገር ውስጥም ዓለም አቀፍም ተቀባይነት ያለው ሰርተፊኬት።</div></div>
+      <div class="benefit-item"><div class="benefit-bullet"></div><div><strong style="color:var(--text)">የነገው ስራ ዓለም መተማመኛ</strong> — ዲጂታል ክህሎት ተወዳዳሪ ያደርግዎታል።</div></div>
+      <div class="benefit-item"><div class="benefit-bullet"></div><div><strong style="color:var(--text)">የአእምሮ እረፍት</strong> — ሰርተፊኬትዎን ያለምንም ስህተት በደቂቃዎች ውስጥ እናስረክብዎታለን።</div></div>
     </div>
   </div>
-
-  <div class="info-card" style="border-color:rgba(255,215,0,0.3);">
+  <div class="info-card" style="border-color:rgba(255,215,0,.3);">
     <span class="section-icon">⚡</span>
     <div class="section-title">ፈጣን፣ ታማኝ እና ዲጂታል አሰራር</div>
     <div class="section-body">
-      የእርስዎን ጊዜ እና የኢንተርኔት ወጪ በመቆጠብ፣ የኢትዮ ኮደርስ ስልጠናዎን በጥራት አጠናቀን የ Udacity ሰርተፊኬት በሚያምር ሁኔታ ናስረክብዎታለን።
-      <br>
-      <span class="price-badge">💳 80 ብር ብቻ!</span>
+      ስልጠናው <strong style="color:var(--green)">ሙሉ በሙሉ በነጻ ነው።</strong> 85 ብሩ ሰርተፍኬትዎን ፈጠን ለማስረከብ የሚከፍሉት የድካም ዋጋ ብቻ ነው።
+      <br><span class="price-badge">💳 85 ብር ብቻ!</span>
     </div>
   </div>
-
 </div>
 
 <!-- CTA -->
@@ -485,164 +249,286 @@
   <button class="cta-btn" onclick="openModal()">✍️ ለመመዝገብ ይጫኑ</button>
 </div>
 
-<!-- MODAL -->
+<!-- ======== MODAL ======== -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
 
-    <div id="formSection">
+    <!-- Step dots -->
+    <div class="steps-indicator" id="stepDots">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <!-- STEP 1: Personal Info -->
+    <div class="step-page active" id="step1">
       <div class="modal-title">📝 የምዝገባ ቅጽ</div>
-      <div class="modal-sub">መረጃዎ ወደ ቴሌግራም ይላካል</div>
-
+      <div class="modal-sub">ደረጃ 1 / 4 — ግላዊ መረጃ</div>
+      <div class="step-heading">👤 ግላዊ መረጃ</div>
       <div class="form-row">
-        <div class="form-group">
-          <label>ስም *</label>
-          <input type="text" id="firstName" placeholder="ስምዎ">
-        </div>
-        <div class="form-group">
-          <label>የአባት ስም *</label>
-          <input type="text" id="fatherName" placeholder="የአባት ስም">
-        </div>
+        <div class="form-group"><label>ስም *</label><input type="text" id="firstName" placeholder="ስምዎ"></div>
+        <div class="form-group"><label>የአባት ስም *</label><input type="text" id="fatherName" placeholder="የአባት ስም"></div>
       </div>
-
-      <div class="form-group">
-        <label>የአያት ስም</label>
-        <input type="text" id="grandName" placeholder="የአያት ስም">
-      </div>
-
+      <div class="form-group"><label>የአያት ስም</label><input type="text" id="grandName" placeholder="የአያት ስም"></div>
       <div class="form-group">
         <label>ጾታ *</label>
-        <select id="gender">
-          <option value="">-- ጾታ ይምረጡ --</option>
-          <option value="ወንድ">ወንድ</option>
-          <option value="ሴት">ሴት</option>
-        </select>
+        <select id="gender"><option value="">-- ጾታ ይምረጡ --</option><option>ወንድ</option><option>ሴት</option></select>
       </div>
-
-      <div class="form-group">
-        <label>የቴሌግራም ስልክ ቁጥር *</label>
-        <input type="tel" id="phone" placeholder="+251 9__ ___ ___">
-      </div>
-
+      <div class="form-group"><label>የቴሌግራም ስልክ ቁጥር *</label><input type="tel" id="phone" placeholder="+251 9__ ___ ___"></div>
       <div class="form-group">
         <label>ክልል *</label>
         <select id="region" onchange="updateZones()">
           <option value="">-- ክልል ይምረጡ --</option>
-          <option>አዲስ አበባ</option>
-          <option>አፋር</option>
-          <option>አማራ</option>
-          <option>ቤኒሻንጉል-ጉሙዝ</option>
-          <option>ድሬዳዋ</option>
-          <option>ጋምቤላ</option>
-          <option>ሃራሪ</option>
-          <option>ኦሮሚያ</option>
-          <option>ሲዳማ</option>
-          <option>ሶማሊ</option>
-          <option>ደቡብ ምዕራብ ኢትዮጵያ</option>
-          <option>ደቡብ ኢትዮጵያ</option>
-          <option>ትግራይ</option>
+          <option>አዲስ አበባ</option><option>አፋር</option><option>አማራ</option>
+          <option>ቤኒሻንጉል-ጉሙዝ</option><option>ድሬዳዋ</option><option>ጋምቤላ</option>
+          <option>ሃራሪ</option><option>ኦሮሚያ</option><option>ሲዳማ</option>
+          <option>ሶማሊ</option><option>ደቡብ ምዕራብ ኢትዮጵያ</option>
+          <option>ደቡብ ኢትዮጵያ</option><option>ትግራይ</option>
         </select>
       </div>
-
       <div class="form-group">
         <label>ዞን</label>
-        <select id="zone">
-          <option value="">-- መጀመሪያ ክልል ይምረጡ --</option>
-        </select>
+        <select id="zone"><option value="">-- መጀመሪያ ክልል ይምረጡ --</option></select>
       </div>
-
       <div class="form-group">
         <label>የትምህርት ደረጃ *</label>
         <select id="education">
           <option value="">-- ደረጃ ይምረጡ --</option>
-          <option>8ኛ ክፍል እና ዝቅ</option>
-          <option>9ኛ - 10ኛ ክፍል</option>
-          <option>11ኛ - 12ኛ ክፍል</option>
-          <option>ዲፕሎማ</option>
-          <option>ዲግሪ</option>
-          <option>ማስተርስ እና ከዚያ በላይ</option>
+          <option>8ኛ ክፍል እና ዝቅ</option><option>9ኛ - 10ኛ ክፍል</option>
+          <option>11ኛ - 12ኛ ክፍል</option><option>ዲፕሎማ</option>
+          <option>ዲግሪ</option><option>ማስተርስ እና ከዚያ በላይ</option>
         </select>
       </div>
-
-      <button class="submit-btn" onclick="submitForm()">✅ መዝግብ</button>
+      <div class="btn-row"><button class="btn-next" onclick="goStep(2)">ቀጣይ →</button></div>
     </div>
 
-    <div class="success-screen" id="successSection">
-      <div class="success-icon">🎉</div>
-      <div class="success-title">ምዝገባዎ ተሳክቷል!</div>
-      <div class="success-msg">
-        አመሰግናለሁ! መረጃዎ ወደ ቴሌግራም ተልኳል።<br>
-        በቅርቡ ኢትዮ ኮደርስ ቡድን ያናግርዎታል።<br><br>
-        <strong style="color:var(--gold)">Ethio-Coders ቤተሰብ እንኳን ደህና መጡ! 🚀</strong>
+    <!-- STEP 2: Department -->
+    <div class="step-page" id="step2">
+      <div class="modal-title">🎓 ፕሮግራም ምርጫ</div>
+      <div class="modal-sub">ደረጃ 2 / 4 — የሚሰለጥኑበት ዲፓርትመንት</div>
+      <div class="step-heading">💻 ፕሮግራም ይምረጡ *</div>
+      <div class="dept-grid">
+        <div class="dept-card" id="dept-ds" onclick="selectDept('Data Science Fundamentals','dept-ds')">
+          <div class="dept-radio"></div>
+          <div class="dept-icon">📊</div>
+          <div class="dept-info">
+            <div class="dept-name">Data Science Fundamentals</div>
+            <div class="dept-desc">ዳታ ትንታኔ፣ Python፣ ስታቲስቲክስ እና ማሽን ለርኒንግ መሰረቶች</div>
+          </div>
+        </div>
+        <div class="dept-card" id="dept-ai" onclick="selectDept('Artificial Intelligence Fundamentals','dept-ai')">
+          <div class="dept-radio"></div>
+          <div class="dept-icon">🤖</div>
+          <div class="dept-info">
+            <div class="dept-name">Artificial Intelligence Fundamentals</div>
+            <div class="dept-desc">AI፣ ማሽን ለርኒንግ እና ዲፕ ለርኒንግ ተግባራዊ ስልጠና</div>
+          </div>
+        </div>
+        <div class="dept-card" id="dept-and" onclick="selectDept('Android Fundamentals','dept-and')">
+          <div class="dept-radio"></div>
+          <div class="dept-icon">📱</div>
+          <div class="dept-info">
+            <div class="dept-name">Android Fundamentals</div>
+            <div class="dept-desc">Android app development ከ Kotlin/Java ጋር ተማሩ</div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:18px;">
+        <button class="btn-back" onclick="goStep(1)">← ተመለስ</button>
+        <button class="btn-next" onclick="goStep(3)">ቀጣይ →</button>
       </div>
     </div>
+
+    <!-- STEP 3: ID -->
+    <div class="step-page" id="step3">
+      <div class="modal-title">🪪 መታወቂያ</div>
+      <div class="modal-sub">ደረጃ 3 / 4 — የመታወቂያ መረጃ</div>
+      <div class="step-heading">🪪 የመታወቂያ አይነት ይምረጡ</div>
+      <div class="form-group">
+        <label>የመታወቂያ አይነት *</label>
+        <select id="idType">
+          <option value="">-- አይነት ይምረጡ --</option>
+          <option>National ID (ብሔራዊ መታወቂያ)</option>
+          <option>Student ID (የተማሪ መታወቂያ)</option>
+          <option>Kebele ID (የቀበሌ መታወቂያ)</option>
+          <option>Labour ID (የስራ መታወቂያ)</option>
+          <option>Driver's License (የመኪና ፈቃድ)</option>
+          <option>Passport (ፓስፖርት)</option>
+          <option>Employment ID (የሥራ ቦታ መታወቂያ)</option>
+          <option>Other (ሌላ)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>የመታወቂያ ፎቶ ያስቀሉ *</label>
+        <div class="upload-box" id="idBox">
+          <input type="file" id="idPhoto" accept="image/*" onchange="previewFile('idPhoto','idPreview','idBox','idLbl')">
+          <span class="upload-icon">🪪</span>
+          <div class="upload-label" id="idLbl">ፎቶ ለማንሳት ወይም ፋይል ለመምረጥ ይጫኑ</div>
+          <img class="upload-preview" id="idPreview" alt="ID">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(2)">← ተመለስ</button>
+        <button class="btn-next" onclick="goStep(4)">ቀጣይ →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Payment -->
+    <div class="step-page" id="step4">
+      <div class="modal-title">💳 ክፍያ</div>
+      <div class="modal-sub">ደረጃ 4 / 4 — M-Pesa ክፍያ</div>
+      <div class="payment-box">
+        <div class="mpesa-logo">📲</div>
+        <div class="mpesa-title">M-Pesa ክፍያ ይፈጽሙ</div>
+        <div style="color:var(--muted);font-size:.82rem;margin-bottom:6px;">ወደዚህ ቁጥር ይላኩ</div>
+        <div class="mpesa-number">0723 182 482</div>
+        <div class="mpesa-amount">💰 85 ብር</div>
+      </div>
+      <div class="warning-box">
+        <strong>📢 ማሳሰቢያ፦</strong><br>
+        ይህ 85 ብር የስልጠናው Registration fee ሳይሆን፣ የእርስዎን ጊዜና ኢንተርኔት ወጪ የሚቆጥብ <strong>የእፎይታ አገልግሎት ክፍያ</strong> ነው።<br><br>
+        ስልጠናው <strong>ሙሉ በሙሉ በነጻ ነው</strong>፤ 85 ብሩ ሰርተፍኬትዎን ያለምንም ስህተት፣ ፈጠን አውጥተን <strong>ለማስረከብ</strong> ብቻ ነው።
+      </div>
+      <div class="form-group">
+        <label>የክፍያ Screenshot ያስቀሉ *</label>
+        <div class="upload-box" id="payBox">
+          <input type="file" id="payPhoto" accept="image/*" onchange="previewFile('payPhoto','payPreview','payBox','payLbl')">
+          <span class="upload-icon">📸</span>
+          <div class="upload-label" id="payLbl">M-Pesa ክፍያ ስክሪንሾት ያስቀሉ</div>
+          <img class="upload-preview" id="payPreview" alt="Payment">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(3)">← ተመለስ</button>
+        <button class="btn-submit" onclick="submitForm()">✅ ተመዝገብ</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successSection">
+      <div class="confetti-row">🎉🏆🎊</div>
+      <div class="congrats-badge">Congratulations!</div>
+      <div class="success-name" id="successName"></div>
+      <div class="success-msg" id="successMsg"></div>
+      <div class="tg-note">ጥያቄ ካለዎት ወይም ድጋፍ ከፈለጉ ቴሌግራሙን ይቀላቀሉ 👇</div>
+      <a class="tg-btn" href="https://t.me/ethiocoders2026" target="_blank">
+        <span style="font-size:1.3rem">✈️</span> @ethiocoders2026
+      </a>
+    </div>
+
   </div>
 </div>
 
 <script>
-  const zones = {
-    "አዲስ አበባ": ["ቦሌ", "አቃቂ-ቃሊቲ", "ጉለሌ", "ኮልፌ ቀራኒዮ", "ልደታ", "ቂርቆስ", "ዮካ", "አዲስ ከተማ", "ገራጂ", "ኑፋቂን", "ናፍ"],
-    "አፋር": ["አዋሽ ፈንታሌ", "ጋቢ ሩሱ", "ሐሩ ሩሱ", "ዲቃ", "ዳልፋን"],
-    "አማራ": ["ሰሜን ጎንደር", "ደቡብ ጎንደር", "ሰሜን ወሎ", "ደቡብ ወሎ", "ሰሜን ሸዋ", "ምስራቅ ጎጃም", "ምዕራብ ጎጃም", "አዊ", "ምዕራብ ጎጃም", "ወጋምራ", "ህምራ"],
-    "ቤኒሻንጉል-ጉሙዝ": ["አሶሳ", "ካማሺ", "ሜቴኬል", "ምዕራብ ጎጃም"],
-    "ድሬዳዋ": ["ድሬዳዋ ከተማ", "ድሬዳዋ ገጠር"],
-    "ጋምቤላ": ["አኙዋቅ", "ኑዌር", "ምዕራብ ጋምቤላ"],
-    "ሃራሪ": ["ሃራሪ"],
-    "ኦሮሚያ": ["ምዕራብ ሸዋ", "ምስራቅ ሸዋ", "ሰሜን ሸዋ", "ምዕራብ ሐረርጌ", "ምስራቅ ሐረርጌ", "ምዕራብ አርሲ", "አርሲ", "ቦረና", "ጅማ", "ምዕራብ ወለጋ", "ምስራቅ ወለጋ", "ቄለም ወለጋ", "ኢሉ አባ ቦራ", "ቡኖ ቤዴሌ"],
-    "ሲዳማ": ["ሀዋሳ", "ቦሪቻ", "ቡሌ", "ዳሌ", "ወንዶ ገነት"],
-    "ሶማሊ": ["ፍቅሬ", "ጅጅጋ", "ሺሌ", "ደጋሃቡር", "ጉምቡሬ"],
-    "ደቡብ ምዕራብ ኢትዮጵያ": ["ካፋ", "ዳዉሮ", "ሸካ", "ኮንታ"],
-    "ደቡብ ኢትዮጵያ": ["ወላይታ", "ሃዲያ", "ጌዲዮ", "ከምባታ-ተምባሮ", "ጉራጌ", "ሲልቴ"],
-    "ትግራይ": ["ሰሜን ምዕራብ ትግራይ", "ምዕራብ ትግራይ", "ደቡብ ትግራይ", "ምስራቅ ትግራይ", "ማዕከላዊ ትግራይ", "ሰሜን ምስራቅ ትግራይ"],
+const zones={
+  "አዲስ አበባ":["ቦሌ","አቃቂ-ቃሊቲ","ጉለሌ","ኮልፌ ቀራኒዮ","ልደታ","ቂርቆስ","ዮካ","አዲስ ከተማ","ናፍ"],
+  "አፋር":["ዞን 1 (አዋሽ ፈንታሌ)","ዞን 2","ዞን 3 (ጋቢ ሩሱ)","ዞን 4 (ዳልፋን)","ዞን 5"],
+  "አማራ":["ሰሜን ጎንደር","ደቡብ ጎንደር","ሰሜን ወሎ","ደቡብ ወሎ","ሰሜን ሸዋ","ምስራቅ ጎጃም","ምዕራብ ጎጃም","አዊ","ወጋምራ","ህምራ","ቅማንት"],
+  "ቤኒሻንጉል-ጉሙዝ":["አሶሳ","ካማሺ","ሜቴኬል","ሻዮ ቤኔ"],
+  "ድሬዳዋ":["ድሬዳዋ ከተማ","ድሬዳዋ ገጠር"],
+  "ጋምቤላ":["አኙዋቅ","ኑዌር","ምዕራብ ጋምቤላ"],
+  "ሃራሪ":["ሃራሪ ከተማ"],
+  "ኦሮሚያ":["ምዕራብ ሸዋ","ምስራቅ ሸዋ","ሰሜን ሸዋ","ምዕራብ ሐረርጌ","ምስራቅ ሐረርጌ","ምዕራብ አርሲ","አርሲ","ቦረና","ጅማ","ምዕራብ ወለጋ","ምስራቅ ወለጋ","ቄለም ወለጋ","ኢሉ አባ ቦራ","ቡኖ ቤዴሌ","ጉጂ","ምዕራብ ጉጂ"],
+  "ሲዳማ":["ሀዋሳ","ቦሪቻ","ቡሌ","ዳሌ","ወንዶ ገነት","አሌታ ቾቾ"],
+  "ሶማሊ":["ፍቅሬ","ጅጅጋ","ሺሌ","ደጋሃቡር","ጎዴ","ቦሃ"],
+  "ደቡብ ምዕራብ ኢትዮጵያ":["ካፋ","ዳዉሮ","ሸካ","ኮንታ"],
+  "ደቡብ ኢትዮጵያ":["ወላይታ","ሃዲያ","ጌዲዮ","ከምባታ-ተምባሮ","ጉራጌ","ሲልቴ","ዓለባ"],
+  "ትግራይ":["ሰሜን ምዕራብ ትግራይ","ምዕራብ ትግራይ","ደቡብ ትግራይ","ምስራቅ ትግራይ","ማዕከላዊ ትግራይ","ሰሜን ምስራቅ ትግራይ"]
+};
+
+let selectedDept='', currentStep=1;
+
+function updateZones(){
+  const r=document.getElementById('region').value;
+  const z=document.getElementById('zone');
+  z.innerHTML='<option value="">-- ዞን ይምረጡ --</option>';
+  if(zones[r]) zones[r].forEach(zn=>{const o=document.createElement('option');o.value=zn;o.textContent=zn;z.appendChild(o);});
+}
+
+function selectDept(name,id){
+  selectedDept=name;
+  document.querySelectorAll('.dept-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById(id).classList.add('selected');
+}
+
+function previewFile(inp,prev,box,lbl){
+  const file=document.getElementById(inp).files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=document.getElementById(prev);
+    img.src=e.target.result; img.style.display='block';
+    document.getElementById(box).classList.add('has-file');
+    document.getElementById(lbl).textContent='✅ '+file.name;
   };
+  reader.readAsDataURL(file);
+}
 
-  function updateZones() {
-    const r = document.getElementById('region').value;
-    const z = document.getElementById('zone');
-    z.innerHTML = '<option value="">-- ዞን ይምረጡ --</option>';
-    if (zones[r]) {
-      zones[r].forEach(zone => {
-        const o = document.createElement('option');
-        o.value = zone; o.textContent = zone;
-        z.appendChild(o);
-      });
-    }
+function goStep(n){
+  if(n>currentStep){
+    if(currentStep===1&&!val1())return;
+    if(currentStep===2&&!val2())return;
+    if(currentStep===3&&!val3())return;
   }
+  const prev=currentStep;
+  document.getElementById('step'+prev).classList.remove('active');
+  const dot=document.getElementById('dot'+prev);
+  dot.classList.remove('active');
+  if(n>prev) dot.classList.add('done'); else dot.classList.remove('done');
+  currentStep=n;
+  document.getElementById('step'+n).classList.add('active');
+  const ndot=document.getElementById('dot'+n);
+  ndot.classList.add('active'); ndot.classList.remove('done');
+  document.querySelector('.modal-box').scrollTop=0;
+}
 
-  function openModal() {
-    document.getElementById('modal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+function val1(){
+  if(!document.getElementById('firstName').value.trim()||
+     !document.getElementById('fatherName').value.trim()||
+     !document.getElementById('gender').value||
+     !document.getElementById('phone').value.trim()||
+     !document.getElementById('region').value||
+     !document.getElementById('education').value){
+    alert('እባክዎ ሁሉንም አስፈላጊ (*) ፊልዶች ይሙሉ!');return false;}
+  return true;
+}
+function val2(){
+  if(!selectedDept){alert('እባክዎ ፕሮግራም ይምረጡ!');return false;}
+  return true;
+}
+function val3(){
+  if(!document.getElementById('idType').value||!document.getElementById('idPhoto').files.length){
+    alert('እባክዎ የመታወቂያ አይነት ይምረጡ እና ፎቶ ያስቀሉ!');return false;}
+  return true;
+}
+
+function submitForm(){
+  if(!document.getElementById('payPhoto').files.length){
+    alert('እባክዎ የክፍያ ስክሪንሾት ያስቀሉ!');return;
   }
+  const first=document.getElementById('firstName').value.trim();
+  const father=document.getElementById('fatherName').value.trim();
+  const grand=document.getElementById('grandName').value.trim();
+  const fullName=grand?`${first} ${father} ${grand}`:`${first} ${father}`;
 
-  function closeModal() {
-    document.getElementById('modal').classList.remove('active');
-    document.body.style.overflow = '';
-    document.getElementById('formSection').style.display = 'block';
-    document.getElementById('successSection').classList.remove('active');
-  }
+  document.querySelectorAll('.step-page').forEach(s=>s.classList.remove('active'));
+  document.getElementById('stepDots').style.display='none';
+  document.querySelector('.modal-close').style.display='none';
 
-  function submitForm() {
-    const first = document.getElementById('firstName').value.trim();
-    const father = document.getElementById('fatherName').value.trim();
-    const gender = document.getElementById('gender').value;
-    const phone = document.getElementById('phone').value.trim();
-    const region = document.getElementById('region').value;
-    const edu = document.getElementById('education').value;
+  document.getElementById('successSection').classList.add('active');
+  document.getElementById('successName').innerHTML=
+    `🌟 <span style="color:var(--text)">${fullName}</span>`;
+  document.getElementById('successMsg').innerHTML=
+    `<strong style="color:var(--green)">ምዝገባዎ በሙሉ ተጠናቅቋል!</strong><br><br>
+     <strong style="color:var(--muted)">ፕሮግራም፦</strong> <span style="color:var(--accent)">${selectedDept}</span><br><br>
+     ክፍያዎን ካረጋገጥን በኋላ ሰርተፊኬትዎን ቴሌግራም ላይ እናስረክብዎታለን።`;
+}
 
-    if (!first || !father || !gender || !phone || !region || !edu) {
-      alert('እባክዎ ሁሉንም አስፈላጊ (*) ፊልዶች ይሙሉ!');
-      return;
-    }
-
-    // Show success
-    document.getElementById('formSection').style.display = 'none';
-    document.getElementById('successSection').classList.add('active');
-  }
-
-  // Close on overlay click
-  document.getElementById('modal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
+function openModal(){document.getElementById('modal').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('modal').classList.remove('active');document.body.style.overflow='';}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 </script>
 </body>
 </html>
