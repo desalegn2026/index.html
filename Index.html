@@ -169,6 +169,7 @@
     font-family:'Noto Sans Ethiopic',sans-serif;cursor:pointer;
     transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,200,81,.3);}
   .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,200,81,.5);}
+  .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
 
   /* SUCCESS */
   .success-screen{display:none;text-align:center;padding:16px 0;}
@@ -187,6 +188,11 @@
     transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,136,204,.4);}
   .tg-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,204,.6);}
   .tg-note{font-size:.8rem;color:var(--muted);margin-top:14px;}
+
+  /* LOADING SPINNER */
+  .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);
+    border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -402,7 +408,7 @@
       </div>
       <div class="btn-row">
         <button class="btn-back" onclick="goStep(3)">← ተመለስ</button>
-        <button class="btn-submit" onclick="submitForm()">✅ ተመዝገብ</button>
+        <button class="btn-submit" id="submitBtn" onclick="submitForm()">✅ ተመዝገብ</button>
       </div>
     </div>
 
@@ -422,6 +428,40 @@
 </div>
 
 <script>
+// ======== SUPABASE CONFIG ========
+const SUPABASE_URL = 'https://lgwaxajhegyxaewwzlqh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxnd2F4YWpoZWd5eGFld3d6bHFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NTkwMDYsImV4cCI6MjA5NDUzNTAwNn0.1eI38CMwjonEBWP3PboFRct8Dtlizi-xlfXlTBM9vZU';
+const TABLE_NAME = 'ethio-coder student form';
+
+async function saveToSupabase(data) {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${encodeURIComponent(TABLE_NAME)}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(err);
+  }
+  return true;
+}
+
+// Convert image file to base64
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = () => reject(new Error('File read error'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// ======== ORIGINAL CODE (unchanged) ========
 const zones={
   "አዲስ አበባ":["ቦሌ","አቃቂ-ቃሊቲ","ጉለሌ","ኮልፌ ቀራኒዮ","ልደታ","ቂርቆስ","ዮካ","አዲስ ከተማ","ናፍ"],
   "አፋር":["ዞን 1 (አዋሽ ፈንታሌ)","ዞን 2","ዞን 3 (ጋቢ ሩሱ)","ዞን 4 (ዳልፋን)","ዞን 5"],
@@ -504,26 +544,65 @@ function val3(){
   return true;
 }
 
-function submitForm(){
+async function submitForm(){
   if(!document.getElementById('payPhoto').files.length){
     alert('እባክዎ የክፍያ ስክሪንሾት ያስቀሉ!');return;
   }
-  const first=document.getElementById('firstName').value.trim();
-  const father=document.getElementById('fatherName').value.trim();
-  const grand=document.getElementById('grandName').value.trim();
-  const fullName=grand?`${first} ${father} ${grand}`:`${first} ${father}`;
 
-  document.querySelectorAll('.step-page').forEach(s=>s.classList.remove('active'));
-  document.getElementById('stepDots').style.display='none';
-  document.querySelector('.modal-close').style.display='none';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>እየተላከ ነው...';
 
-  document.getElementById('successSection').classList.add('active');
-  document.getElementById('successName').innerHTML=
-    `🌟 <span style="color:var(--text)">${fullName}</span>`;
-  document.getElementById('successMsg').innerHTML=
-    `<strong style="color:var(--green)">ምዝገባዎ በሙሉ ተጠናቅቋል!</strong><br><br>
-     <strong style="color:var(--muted)">ፕሮግራም፦</strong> <span style="color:var(--accent)">${selectedDept}</span><br><br>
-     ክፍያዎን ካረጋገጥን በኋላ ሰርተፊኬትዎን ቴሌግራም ላይ እናስረክብዎታለን።`;
+  try {
+    // Convert images to base64
+    const idFile = document.getElementById('idPhoto').files[0];
+    const payFile = document.getElementById('payPhoto').files[0];
+    const idBase64 = await fileToBase64(idFile);
+    const payBase64 = await fileToBase64(payFile);
+
+    const first = document.getElementById('firstName').value.trim();
+    const father = document.getElementById('fatherName').value.trim();
+    const grand = document.getElementById('grandName').value.trim();
+    const fullName = grand ? `${first} ${father} ${grand}` : `${first} ${father}`;
+
+    const data = {
+      full_name: fullName,
+      first_name: first,
+      father_name: father,
+      grand_name: grand || null,
+      gender: document.getElementById('gender').value,
+      phone: document.getElementById('phone').value.trim(),
+      region: document.getElementById('region').value,
+      zone: document.getElementById('zone').value || null,
+      education: document.getElementById('education').value,
+      program: selectedDept,
+      id_type: document.getElementById('idType').value,
+      id_photo: idBase64,
+      payment_screenshot: payBase64,
+      registered_at: new Date().toISOString()
+    };
+
+    await saveToSupabase(data);
+
+    // Show success screen
+    document.querySelectorAll('.step-page').forEach(s=>s.classList.remove('active'));
+    document.getElementById('stepDots').style.display='none';
+    document.querySelector('.modal-close').style.display='none';
+
+    document.getElementById('successSection').classList.add('active');
+    document.getElementById('successName').innerHTML =
+      `🌟 <span style="color:var(--text)">${fullName}</span>`;
+    document.getElementById('successMsg').innerHTML =
+      `<strong style="color:var(--green)">ምዝገባዎ በሙሉ ተጠናቅቋል!</strong><br><br>
+       <strong style="color:var(--muted)">ፕሮግራም፦</strong> <span style="color:var(--accent)">${selectedDept}</span><br><br>
+       ክፍያዎን ካረጋገጥን በኋላ ሰርተፊኬትዎን ቴሌግራም ላይ እናስረክብዎታለን።`;
+
+  } catch(err) {
+    console.error(err);
+    alert('❌ ምዝገባ አልተሳካም። እባክዎ ድጋሚ ይሞክሩ!\n\nError: ' + err.message);
+    btn.disabled = false;
+    btn.innerHTML = '✅ ተመዝገብ';
+  }
 }
 
 function openModal(){document.getElementById('modal').classList.add('active');document.body.style.overflow='hidden';}
